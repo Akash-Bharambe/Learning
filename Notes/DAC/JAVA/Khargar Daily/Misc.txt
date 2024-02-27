@@ -1,0 +1,429 @@
+Interface new features
+----------------------------
+static method
+default implemented method
+private static method
+private implemented method
+
+
+Functional Interface:
+Interface having only one abstract methods. 
+Such interface can have implemented static and default methods but there must be only one abstract method.
+
+Marker Interface:
+Interface which does not have any method in it.
+
+Ex: Functional Interface
+interface MyInterface
+{
+	void myFun();
+}
+
+interface MyInterface
+{
+	void myFun();
+	default void anotherFun()
+	{
+		//code
+	}
+}
+
+Ex: Marker Interface
+interface MyInterface
+{
+}
+
+
+==============================================
+
+Inner Class
+--------------
+1. Inner Class (static & non-static)
+2. Method Inner Class
+3. Interface Inner Class
+4. Anonymous Inner Class (Inner class without any class name)
+
+Anonymous inner class can be used for the implementation of interface, for extending and overriding any abstract or concrete class methods.
+
+- Inner Interface
+
+
+class MyOuterClass
+{
+	//code
+	
+	class MyInnerClass
+	{
+		//code
+	}
+}
+
+Inner class access modifier can be public,private,protected or default.
+Outer class access modifier always either public or default.
+Outer class can not directly access the inner class members, it will have to create inner class object and then can access its members
+Inner class has access to all the members (including private) of the outer class
+To create inner class object from outside the outer class we must have outer class object first then using that outer class object we will create inner class object.
+
+static inner class: 
+-------------------
+We can declare inner class as static also.
+We don't need outer class object first to create the static inner class object.
+
+Method inner class
+---------------------
+A class can be declared inside method and can be used inside that method only.
+
+===============================================================
+Enumerations - Enum
+-----------------------
+
+It is a list of named constant.
+
+roleId - ADMIN,FACULTY,STUDENT
+
+roleId - 1, 2, 3
+
+
+================================================================
+
+
+Lambda Expressions
+--------------------
+
+- It is used for functional interface.
+- Using lambda expression we can pass functionality or code as a method parameter.
+
+Lambda expression syntax:
+
+(parameter) -> {expression}
+
+
+interface AddCalculator
+{
+	int add(int a, int b);
+}
+
+
+//anonymous inner class implementation for AddCulator
+AddCalculator ac1 = new AddCalculator(){
+                     public int add(int a, int b) { return a + b ;}                
+                    };
+
+
+//Lambda Expression for AddCalculator implementation
+AddCalculator ac1 = (int a, int b) -> { return a + b ;};     
+
+We don't need to explicitly mention the type of the parameters.
+AddCalculator ac1 = (a, b) -> { return a + b ;}; 
+
+If there is only one statement in the expression part then we can leave the curly brackets.
+In the case of single statement we don't need to explicitly return the value, it will be automatically returned.
+
+AddCalculator ac1 = (a, b) ->  a + b ;        
+                    
+If there are multiple statements within the expression part, then we must have to use curly bracket.
+AddCalculator ac1 = (int a, int b) -> { int sum; sum = a + b ; return sum;};
+
+If parameter list, contains only one parameter, we can leave the parantheses.
+
+interface MyInterface
+{
+	void print(int a);
+}
+
+MyInterface mif2 = a -> System.out.println(a);
+mif2.print(20);
+
+---------------------------------
+
+
+interface Consumer<T>
+{
+	void accept(T a);
+}
+
+
+forEach(Consumer action)
+
+
+The container class(List,Set) which has implemented Iterable, forEach() method can be used to iterate the object of that class.
+
+======================================================
+
+Regular Expressions or Regex
+--------------------------------
+It is used to match a given pattern with the string.
+
+Regex : [3] 
+Only 3
+5	//invalid
+6	//invalid
+
+regex : [3-8]  
+meaning : single digit any number between 3 to 8
+3 valid
+4 valid
+7 valid
+8 valid
+9 invalid
+2 invalid
+45 invalid
+
+regex: [3-8]{2}
+meaning: two digit number having digits from 3 to 8
+
+35 valid
+73 valid
+65 valid
+89 invalid
+28 invalid
+
+
+regex: [^4-7]{2}
+meaning: two digit number having digits not from 4 to 7
+
+28 valid
+19 valid
+98 valid
+39 valid
+49 invalid
+65 invalid
+
+regex: [47]{2}
+meaning: two digit number having 4 and 7 as digits
+47 valid
+74 valid
+anything else invalid
+
+regex: 5[4-7]*5 
+meaning: zero or more time. Any number starting and ending with 5 and having digits from the range 4 to 
+
+55 valid
+565 valid
+57676445 valid
+564	invalid
+585	invalid
+
+regex: 5[4-7]+5 
+meaning: one or more time.
+
+55 invalid
+565 valid
+57676445 valid
+564	invalid
+585	invalid
+
+
+regex: 5[4-7]?5 
+meaning: zero or one time
+55 valid
+545 valid
+5445 invalid
+
+(a|b) 
+meaning: either a or b
+ex: x(a|b)z
+
+xaz valid
+xbz valid
+xzz invalid
+xabz invalid
+
+
+------------
+
+[a-zA-Z0-9]  => set of a to z any character and A to Z any character and 0-9 any digit 
+
+[a-zA-Z0-9]{3}
+
+a0A valid
+aaa valid
+Aa5 valid
+A5 invalid
+A56A invalid
+A@6 invalid
+
+Mobile No. regex:
+
+Mobile No. validate:
+09876987687,+919876987687
+
+(\\+91|0)[0-9]{10}
+
+
+Metacharacter : .[{()\^$|?*+   (it needs to be escaped).
+
+emailId validate (gmail.com,cdac.in)
+
+[^0-9][a-zA-Z0-9]+@(gmail.com|cdac.in)
+\\D[a-zA-Z0-9]+@(gmail.com|cdac.in)
+\\D\\w+@(gmail.com|cdac.in)
+
+\D not from 0-9 => equivalent to [^0-9]
+\d => [0-9]
+
+"\bjava\b"
+
+word boundary =>  start and end of the word
+
+This is a demo.
+
+============================================
+Cloning
+-----------
+Shallow cloning => values + reference copied (referenced object not cloned)
+Deep cloning => values + referenced object cloned 
+
+==========================================
+Each class has a Class object which contains details about the class.
+============================================
+Using Reflection API we can invoke private methods of a class from the outside of the class.
+
+
+==============================================
+
+
+Varargs
+-----------
+
+
+void myFun(int arr[])
+{
+}
+
+void myFun(int... arr)
+{
+}
+
+=====================================
+Java is completely/fully/pure object oriented or not? 
+
+Ans. NO
+
+In java primitive type are not objects.
+
+
+SmallTalk - Purely Object Oriented Oriented
+
+========================================
+
+Voter Id
+---------
+Age -> 18
+
+=========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

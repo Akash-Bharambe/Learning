@@ -1,0 +1,709 @@
+Wrapper Classes
+------------------
+class WrapperPrimitiveAssignmentDemo
+{
+        public static void main(String args[])
+        {
+                Integer iobj1 = 100;
+                Integer iobj2 = new Integer(100);
+                Integer iobj3 = 100;
+
+                System.out.println(iobj1 == iobj2);
+                System.out.println(iobj1 == iobj3);
+
+                System.out.println(iobj1.equals(iobj2));
+
+                Object obj = 100;                       //OK, due to autoboxing.
+                System.out.println(obj);                //System.out.println(obj.toString());
+
+
+        }
+}
+
+
+OUTPUT:
+false
+true
+true
+100
+
+=====================================================================
+
+
+Generics
+----------
+
+When internal logic is same but type is different in that case we can use generic.
+Working with different datatypes with same logic.
+Using generic same class and methods can be used for different data types.
+We can not pass primitive data type as type of Generic class/methods.
+Generic class/methods takes only class type as type parameter.
+There is only one version of the generic class/methods i.e. there is no seperate versions for different data type.
+
+--------------
+
+Add two numbers
+both the number will be of same type
+
+both can be integer
+both can be double
+
+4 + 5 => 9
+4.5 + 6.3 => 10.8
+
+
+class TwoNumbers
+{
+	int a;
+	int b;
+	
+	TwoNumbers()
+	{
+	}
+	
+	TwoNumbers(int a, int b)
+	{
+		this.a = a;
+		this.b = b;
+	}
+	
+	int getSum()
+	{
+		return a+b;
+	}
+}
+
+class NumberSumDemo
+{
+	public static void main(String args[])
+	{
+		TwoNumbers tn1 = new TwoNumbers(4,5);
+		System.out.println(tn1.getSum());	
+	}
+}
+
+
+Generic class example
+------------------------
+class TwoNumbers <T>                            //T is here type parameter
+{
+        T a;
+        T b;
+
+        TwoNumbers()
+        {
+        }
+
+        TwoNumbers(T a, T b)
+        {
+                this.a = a;
+                this.b = b;
+        }
+
+        T getA()
+        {
+                return a;
+        }
+
+        T getB()
+        {
+                return b;
+        }
+
+}
+
+class GenericNumberSumDemo
+{
+        public static void main(String args[])
+        {
+                TwoNumbers<Integer> tn1 = new TwoNumbers<Integer>(4,5);
+                System.out.println(tn1.getA());
+                System.out.println(tn1.getB());
+
+                TwoNumbers<Double> tn2 = new TwoNumbers<Double>(4.2,5.3);
+                System.out.println(tn2.getA());
+                System.out.println(tn2.getB());
+        }
+}
+
+OUTPUT:
+4
+5
+4.2
+5.3
+
+------------------------------------------------------
+TwoNumbers <int> tn1;		//This is wrong, we can not pass primitive as type
+TwoNumbers <Integer> tn1;	//This is OK, we can pass only class type as type
+-------------------------------------------------------
+
+T can be Integer, Double, First, String
+T can not be primitive data type like int, float, double, char.
+
+class MyGen <T>
+{
+	T ob;
+	
+	MyGen()
+	{
+		db = null;
+	}
+	
+	MyGen(T ob)		//Integer ob = 100;
+	{
+		this.ob = ob;
+	}
+	
+	T getOb()
+	{
+		return ob;
+	}
+}
+
+class GenericDemo
+{
+	public static void main(String args[])
+	{
+		MyGen<Integer> mg1 = new MyGen<Integer>(100);
+		int a = mg1.getOb();			// int = Integer OK, due to auto-unboxing
+		System.out.println(a);
+		
+		MyGen<String> mg2 = new MyGen<String>("Welcome");
+		String s = mg2.getOb();
+		System.out.println(s);	
+	}
+}
+
+OUTPUT:
+100
+Welcome
+==========================================================
+
+Important point: Object is the superclass of all the classes in java.
+
+class MyNonGen 
+{
+	Object ob;
+	
+	MyNonGen()
+	{
+	}
+	
+	MyNonGen(Object ob)		//Object ob = 100		
+	{
+		this.ob = ob;
+	}
+	
+	Object getOb()
+	{
+		return ob;
+	}
+}
+
+class NonGenDemo
+{
+	public static void main(String args[])
+	{
+		MyNonGen mg1 = new MyNonGen(100);
+		int a = (Integer)mg1.getOb();			//int = (Integer)Object		
+		System.out.println(a);
+		
+		MyNonGen mg2 = new MyNonGen("Welcome");
+		String s = (String)mg2.getOb();				//String = (String)Object
+		System.out.println(s);	
+	}
+}
+
+
+In non-generic implementation:
+- explicit typecasting is needed.
+- no type safety
+
+========================================================================
+
+class MyGen <T>
+{
+	T ob;
+	
+	MyGen()
+	{
+		db = null;
+	}
+	
+	MyGen(T ob)		//Integer ob = 100;
+	{
+		this.ob = ob;
+	}
+	
+	T getOb()
+	{
+		return ob;
+	}
+}
+
+class GenericDemo
+{
+	public static void main(String args[])
+	{
+		MyGen<Integer> mg1 = new MyGen<Integer>(100);
+		int a = mg1.getOb();			// int = Integer OK, due to auto-unboxing
+		System.out.println(a);
+		
+		MyGen<String> mg2 = new MyGen<String>("Welcome");
+		String s = mg2.getOb();
+		System.out.println(s);
+		
+		mg1 = mg2;		//Compilation error; Type Safety	
+	}
+}
+
+
+
+The above class is converted to the following code by the compiler itself and compiler only take cares of all assigment and casting part.
+
+So, type info i.e. T does not exist at runtime. This entire process of removing type info T is known as Type Erasure.
+
+
+class MyGen 
+{
+	Object ob;
+	
+	MyGen()
+	{
+		ob = null;
+	}
+	
+	MyGen(Object ob)		//Integer ob = 100;
+	{
+		this.ob = ob;
+	}
+	
+	Object getOb()
+	{
+		return ob;
+	}
+}
+
+class GenDemo
+{
+	public static void main(String args[])
+	{
+		MyGen mg1 = new MyGen(100);
+		int a = (Integer)mg1.getOb();			//int = (Integer)Object		
+		System.out.println(a);
+		
+		MyGen mg2 = new MyGen("Welcome");
+		String s = (String)mg2.getOb();				//String = (String)Object
+		System.out.println(s);
+		
+		mg1 = mg2;					//No Type Safety
+		a = (Integer)mg1.getOb();			//int = (Integer)Object		
+		System.out.println(a);	
+	}
+}
+
+==================================================================
+
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);		//OK
+MyGen<Integer> mg1 = new MyGen<>(100);			//OK
+MyGen<> mg1 = new MyGen<Integer>(100);			//ERROR
+
+=================================================================
+
+class MyGen <T1,T2>
+{
+	T1 ob1;
+	T2 ob2;
+	
+	MyGen()
+	{
+	}
+	
+	MyGen(T1 ob1, T2 ob2)
+	{
+		this.ob1 = ob1;
+		this.ob2 = ob2;
+	}
+	
+}
+
+MyGen<Integer,Double> mg1 = new MyGen<Integer,Double>(100,25.5);
+================================================================
+Generic method
+---------------
+class MyDemo
+{
+	void myFun()
+	{
+	}
+	
+	static <T1> void print(T a)	
+	{
+		System.out.println(a);
+	}
+}
+
+MyDemo md1 = new MyDemo();
+md1.print("Welcome");
+md1.print(100);
+
+=====================================================
+the type T above declared with class can not be used for static members(data & method)
+
+class MyGen<T>
+{
+	T a;
+	T b;
+	static T c;		//error
+	
+	static void myFun(T x)	//error	
+	{
+	}
+	
+	static <T1> void print(T x)	//OK
+	{
+	} 
+}
+
+=====================================================
+
+Upper Bound
+------------
+
+class MyGen<T>
+{
+}
+
+T i.e. type parameter can be any class.
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);		//OK
+MyGen<String> mg2 = new MyGen<String>("Welcome");	//OK
+
+-----------------------
+
+class MyGen<T extends Number>
+{
+}
+
+Now T i.e. type parameter can be either Number or its child class only.
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);		//OK
+MyGen<String> mg2 = new MyGen<String>("Welcome");	//ERROR as String is not the subclass of Number
+
+==========================================
+
+class MyGen<T>
+{
+	void myFun(T x)
+	{
+		sop(x);
+	}
+}
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);
+
+mg1.myFun(50);			//OK
+mg1.myFun("welcome");		//ERROR
+
+MyGen<String> mg2 = new MyGen<String>("Welcome");
+mg2.myFun(50);			//ERROR
+mg2.myFun("welcome");		//OK
+
+==========================================
+
+class First
+{
+	int a;
+	
+	String toString()
+	{
+		return "First[a = " + a + "]";		//return "First[a = 10]"
+	}
+}
+
+class MyGen<T>
+{
+	T ob;
+	
+	void myFun(MyGen<T> x)		
+	{
+		sop(mg2);		//sop(mg2.toString());
+	}
+	
+	String toString()
+	{
+		return ob.toString();
+	}
+}
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);
+MyGen<Integer> mg2 = new MyGen<Integer>(50);
+
+MyGen<String> mg3 = new MyGen<String>("Welcome");
+
+mg1.myFun(100);			//ERROR
+mg1.myFun(mg2);			//OK
+mg1.myFun(mg3);			//ERROR, as mg3 type is MyGen<String> and not MyGen<Integer>
+
+----------------------------------------------
+
+class MyGen<T>
+{
+	T ob;
+	
+	void myFun(MyGen<?> x)		//Any valid object of MyGen	
+	{
+		sop(mg2);		//sop(mg2.toString());
+	}
+	
+	String toString()
+	{
+		return ob.toString();
+	}
+}
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);
+MyGen<Integer> mg2 = new MyGen<Integer>(50);
+
+MyGen<String> mg3 = new MyGen<String>("Welcome");
+
+mg1.myFun(100);			//ERROR
+mg1.myFun(mg2);			//OK
+mg1.myFun(mg3);			//OK, as mg3 type is a valid object of MyGen
+
+============================================================
+
+class MyGen<T>
+{
+	T ob;
+	
+	void myFun(MyGen<? extends Number> x)	//Any valid object of MyGen with Number or child of 
+						//Number class.	
+	{
+		sop(mg2);		//sop(mg2.toString());
+	}
+	
+	String toString()
+	{
+		return ob.toString();
+	}
+}
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);
+MyGen<Integer> mg2 = new MyGen<Integer>(50);
+
+MyGen<String> mg3 = new MyGen<String>("Welcome");
+
+mg1.myFun(100);			//ERROR
+mg1.myFun(mg2);			//OK
+mg1.myFun(mg3);			//ERROR, as mg3 type MyGen<String> is not a child of Number.
+
+-----------------------------------------------
+
+class MyGen<T>
+{
+	T ob;
+	
+	void myFun(MyGen<? super Number> x)	//Any valid object of MyGen with the parent class of 
+						//Number excluding Number class	
+	{
+		sop(mg2);		//sop(mg2.toString());
+	}
+	
+	String toString()
+	{
+		return ob.toString();
+	}
+}
+
+MyGen<Integer> mg1 = new MyGen<Integer>(100);
+MyGen<Integer> mg2 = new MyGen<Integer>(50);
+
+MyGen<String> mg3 = new MyGen<String>("Welcome");
+
+mg1.myFun(100);			//ERROR
+mg1.myFun(mg2);			//OK
+mg1.myFun(mg3);			//ERROR, as mg3 type MyGen<String> is not a child of Number.
+
+
+
+? extends Number => either Number or child of Number
+? super Number => Only parent class of Number
+
+=====================================================================
+
+class MyGen <T> {};			//Valid
+class MyGen <T extends Number> {} 	//Valid
+class MyGen <? extends Number> {}	//Invalid, applicable at method level only
+class MyGen <? super Number> {}		//Invalid, applicable at method level only
+
+class MyGen <T1 extends Number, T2 extends Exception>
+{
+	void myFun(MyGen<? extends Number> a)
+	{
+	}
+}
+
+extends - upper bound - used at class as well as method level
+super - lower bound - used at method level only
+-------------------------------------------------------------------------
+
+
+interface MyInterface <T>
+{
+	void myFun(T a);
+}
+
+//non-generic class - it is mandatory to specify the type parameter value for T
+class MyClass implements MyInterface <Integer>
+{
+	void myFun(Integer a)
+	{
+	}	
+}
+
+//generic class - It is not mandatory to specify the type.
+class First <T> implements MyInterface <T>
+{
+}
+
+class Second <T extends Number> implements MyInterface<T>
+{
+}
+
+
+-----------------------------------
+
+class First<T>
+{
+}
+
+class Second extends First<Integer>
+{
+}
+
+class Third<T,V> extends First<T>
+{
+}
+
+-----------------------------------------
+
+From parent and child classes, any of these two can be generic/non-generic.
+
+If parent is genric and child is non-generic then we must have to explicitly define all the constructors which are present in parent class, into child class.
+
+
+We can not say:
+MyGen<Number> is the superclass of MyGen<Integer> because at runtime both are object of MyGen and there is no type info at runtime.
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

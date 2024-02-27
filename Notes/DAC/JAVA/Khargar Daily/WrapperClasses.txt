@@ -1,0 +1,509 @@
+Primitive data types
+	- byte, short, int, long, float, double, char, boolean
+
+java provides classes for each primitive types.
+
+byte -> Byte
+short -> Short
+int -> Integer
+long -> Long
+float -> Float
+double -> Double
+char -> Character
+boolean -> Boolean
+
+These classes are known as wrapper classes which wraps/binds/encapsulate the primitive data into object.
+
+Wrapper classes is used to represent/object primitive data as object.
+
+int a = 5;
+
+Some classes/frameworks are there which needs objects only to work with and not the primitive data.
+ex: Generics, Collection Framework
+
+Integer iob = new Integer(5);
+Double dob = new Double(25.3);
+
+-----------------------------------------
+
+Number is an abstract class and it is a superclass of Byte, Short, Integer, Long, Float and Double
+
+abstract methods of Number:
+------------------------------
+byte byteValue();
+short shortValue();
+int intValue();
+long longValue();
+float floatValue();
+double doubleValue();
+
+All the 6 numeric wrapper classes has overridden the above six abstract methods.
+
+Integer iobj1 = new Integer(25);
+iobj1.byteValue();	//will return 25 as primitive byte
+iobj1.shortValue();	//will return 25 as primitive short
+iobj1.intValue();	//will return 25 as primitive int
+iobj1.longValue();	//will return 25 as primitive long
+iobj1.floatValue();	//will return 25.0 as primitive float
+iobj1.doubleValue();	//will return 25.0 as primitive double
+
+
+Mostly used
+-------------
+Integer -> intValue();
+Float -> floatValue();
+Double -> doubleValue();
+
+==================================================================
+
+compareTo()	=> return +1 , -1, 0  => zero when equal
+------------
+
+Integer iobj1 = new Integer(30);
+Integer iobj2 = new Integer(40);;
+
+iobj1.compareTo(iobj2);		//will return -1 as iobj1 < iobj2
+iobj2.compareTo(iobj1);		//will return 1 as iobj2 < iobj1
+
+
+static methods : Integer.parseInt(), Float.parseFloat(), Double.parseDouble()
+------------------------------------------------------------------------------
+
+converts String to primitive int, float or double
+
+String str1 = "245";
+
+int a = Integer.parseInt(str1);		//will store 245 into a. String to primitive conversion
+
+String --> Primitive
+
+OR;
+
+Integer iobj = new Integer(str1);		//String to wrapper
+int a = iobj.intValue();			//Wrapper to primitive
+
+String --> Wrapper --> Primitive
+
+
+class Integer
+{
+	
+	public Integer(int val)
+	{
+		//logic
+	}
+	
+	public Integer(String sval)
+	{
+		//logic
+	}
+}
+
+primitive , wrapper, string (conversion)
+------------------------------------------
+
+Integer iobj1 = new Integer(235);
+String str = iobj1.toString();		//wrapper to String str = "235" 
+
+-------------------------------------------
+wrapper		new Integer(235)
+primitive	235
+String		"235"
+-------------------------------------------
+
+int year = 2023;
+String str = "DAC";
+str.concat(year);	//ERROR
+
+
+String yearstr = new Integer(year).toString();
+str = str.concat(yearstr);	//"DAC2023"
+
+class Integer
+{
+	String toString()
+	{
+		String str = new String("235");
+		return str;
+		
+		//return val as String
+	}
+}
+
+
+
+
+String str = "26.5";
+double d = Double.parseDouble(str);
+
+String --> primitive
+
+OR;
+String str = "26.5";
+Double dobj = new Double(str);
+double d = dobj.doubleValue();
+
+String --> wrapper --> primitive
+
+
+------------------------------------------------------------------
+
+String str = "235";
+Integer iobj = Integer.valueOf(str);	// String to wrapper object
+
+String str = "23.67";
+Double dobj = Double.valueOf(str);	// String to wrapper object
+
+
+------------------------------------------------------------------
+
+Methods to remember
+-----------------------true
+Integer.parseInt(str)		//String to primitive int
+
+Integer.valueOf(str)		//String to wrapper object
+new Integer(str)		//String to Wrapper object
+
+iobj.intValue();		//Wrapper to primitive
+
+iobj.toString();		//Wrapper to String object
+
+new Integer(25)			//primitive to Wrapper object
+
+iobj -> object of Integer wrapper class
+str -> object of String class
+
+----------------------------------------------------------------------	
+Integer iobj = new Integer(25);
+
+Boolean bobj = new Boolean(true);
+
+Boolean bobj = new Boolean("true");
+Boolean bobj = Boolean.valueOf("true");
+
+-------------------------------------------------------------------
+
+Character chobj = new Character('A');
+
+chobj.isDigit();		//will return FALSE
+chobj.isUpperCase();		//will return TRUE
+-----------------------------------------------------------------------
+
+toBinaryString(), toHexString(), toOctalString() 	=> Integer and Long class static methods.
+
+class PrintBinaryHexOctal
+{
+        public static void main(String args[])
+        {
+                int num = 108;
+                Integer numObj = new Integer(108);
+
+                String res = Integer.toBinaryString(num);
+                System.out.println(res);
+
+                res = Integer.toHexString(numObj);
+                System.out.println(res);
+
+                res = Integer.toOctalString(num);
+                System.out.println(res);
+
+        }
+}
+
+OUTPUT:
+1101100
+6c
+154
+
+---------------------------------------------------------
+
+Boxing & Unboxing
+----------------
+Boxing: Primitive to wrapper object 
+Unboxing: Wrapper object to primitive
+
+Boxing example
+-------------
+Integer iobj = new Integer(10);		//Boxing
+
+Unboxing example
+-------------------
+int val = iobj.intValue();		//Unboxing
+
+
+-----------------------------------------------------
+Integer iobj = 10;			//Auto-boxing, for 10 internally an Integer object is created 
+					//and its reference is returned and stored in iobj.
+
+int val = iobj;				//Auto-unboxing
+
+class Demo
+{
+	public static Integer myFun(Integer iobj)		//Integer iobj = 25;
+	{
+		System.out.println(iobj);
+		Integer res = iobj * 2;
+		return res;
+	}
+}
+
+class AutoBoxingUnboxingDemo
+{
+	public static void main(String args[])
+	{
+		int rs = Demo.myFun(25);
+		System.out.println(rs);
+	}
+}
+
+----------------------
+
+class Demo
+{
+	public static Integer myFun(Integer iobj)		//Integer iobj = 25;
+	{
+		System.out.println(iobj);
+		Integer res = new Integer(iobj.intValue() * 2);
+		return res;
+	}
+}
+
+class ManualBoxingUnboxingDemo
+{
+	public static void main(String args[])
+	{
+		int rs = Demo.myFun(new Integer(25)).intValue();
+		System.out.println(rs);
+	}
+}
+
+
+-------------------------------
+
+In short, we can do the assignment as below due to auto-boxing and auto-unboxing
+wrapper object = primitive
+primitive = wrapper
+
+--------------------------------
+
+- Due to auto-boxing, auto-unboxing, arithmetic operation can be performed with wrapper objects also.
+- Due to auto-boxing, auto-unboxing we can combine wrapper object with primitive in an arithmetic operation.
+
+int num = 10;
+Integer numObj = new Integer(25);
+Double dobj = new Double(30.5);
+
+int res = num + numObj;
+sop(res);			//will print 35
+
+double res = numObj + dobj;
+sop (res);			//will  print 55.5
+
+numObj++;
+sop(numObj);			//will print 26
+
+whatever arithmetic operations we perform with the primitive numeric data type the same can be done with the numeric wrapper objects without doing boxing/unboxing as auto-boxing and auto-unboxing is done by the jvm itself.
+
+-----------------------------------------------------------
+int a = 10;
+
+Integer iobj = 10;
+
+We should use wrapper class only when it is mandatory or most needed otherwise we should use primitive to work with numeric data, because using wrapper object adds some extra overhead.
+---------------------------------------------------------------------------
+class First
+{
+	int a;
+	int b;
+}
+
+new First();			//8 bytes
+
+----------------------------------------------------------
+
+Integer iobj = new Integer(10);
+
+int a = iobj.intValue();
+int a = iobj;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Integer iobj1 = new Integer(253);	//OK
+Integer iobj1 = new Integer("253");	//OK
+
+----------------------------------------------------------
+public static void main(String args[])
+{
+}
+
+args[] : It is used to take the command line arguments
+
+Add.java
+
+javac Add.java
+java Add
+
+java Add 30 50
+80
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

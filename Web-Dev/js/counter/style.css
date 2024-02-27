@@ -1,0 +1,21 @@
+body *{
+    text-align: center;
+}
+#count{
+    font-size: 5em;
+    ;
+}
+.buttons button:hover{
+    cursor: pointer;
+    background-color: hsl(9, 100%, 54%);
+
+}
+.buttons button{
+    font-size: 1.2em;
+    margin: 5px;
+    padding: 10px 20px ;
+    color: white;
+    background-color: tomato;
+    border: 0;
+    border-radius: 5px;
+}

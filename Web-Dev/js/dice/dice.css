@@ -1,0 +1,45 @@
+body{
+    text-align: center;
+    background-color: grey;
+}
+
+#container{
+    background-color: white;
+    max-width: fit-content;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#input{
+    text-align: center;
+    font-size: 2rem;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+#submit{
+    margin: 5px;
+    background-color: tomato;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+#submit:hover{
+    background-color: hsl(9, 100%, 74%);
+
+}
+#submit:active{
+    background-color: hsl(9, 100%, 84%);
+
+}
+
+#img img{
+    width: 100px;
+    padding: 10px;
+    border-radius: 40px;
+}

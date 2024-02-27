@@ -1,0 +1,1356 @@
+Student - class
+
+data + methods;
+
+data -> property
+methods -> behavior -> functions
+
+data -> rollNo,name,dob,address,mobNo
+methods -> printDetails, updateDetails
+
+
+--------------------
+
+class Student
+{
+	int rollNo;
+	int age;
+	double marks;
+}
+
+
+
+new keyword is used to create any object of any class.
+
+new Student();			//It will create an object of Student and will 
+				//return reference of object.
+
+
+Student stud = new Student();  //It will create an object of Student and store 
+				//its reference in variable stud.
+				
+Student stud;
+	- stud is a reference variable and it will be used to store the reference.
+	- Whose reference? Reference of any Student object.
+	- Remember this line 'Student stud', it does not create any object.
+	
+
+
+
+
+Member access operator => dot (.)
+
+Student stud = new Student();
+
+OR;
+
+Student stud;		//Reference variable and not an object
+stud = new Student();
+
+stud.rollNo = 1;
+stud.age = 21;
+stud.marks = 78.5
+
+System.out.println(stud.rollNo);
+System.out.println(stud.age);
+System.out.println(stud.marks);
+
+
+-----------------------------------
+
+class Student
+{
+	int rollNo = 1;
+	int age = 20;
+	double marks = 25.0;	
+
+	public void getDetails(int r, int a, double m)
+	{
+		rollNo = r;
+		age = a;
+		marks = m;
+	}
+
+	public void printDetails()
+	{
+		System.out.println(rollNo+" is roll of student "+rollNo);
+		System.out.println(age);
+		System.out.println(marks);
+		
+	}
+}
+
+class StudentDemo1
+{
+	public static void main(String args[])
+	{
+		Student stud1;
+		Student stud2;
+	
+	
+		stud1 = new Student();
+		stud2 = new Student();	
+
+		stud1.getDetails(1,21,78.5);
+		stud2.getDetails(2,23,74.5);
+
+		System.out.println("Student1 details:");
+		stud1.printDetails();
+
+		System.out.println("Student2 details:");
+		stud2.printDetails();
+	}
+}
+
+OUTPUT:
+Student1 details:
+1 is roll no of student 1
+21
+78.5
+Student2 details:
+2
+23
+74.5
+
+				
+
+stud1 = stud2;		
+
+---------------------------------------------------
+int arr[5] = {1,2,3,4,5};	//ERROR
+
+int []arr = {1,2,3,4,5};	//OK
+
+int a;
+int b;
+
+int a,b;
+
+int []arr1;
+int []arr2;
+
+int [] arr1, arr2; // Both the variables are reference variable and will be used to store the reference 
+			//of integer arrays.
+arr1 = new int[5];
+arr2 = new int[3];
+
+
+class => data + methods
+
+class is combination of data and methods which operates over those data.
+
+class Student
+{
+	int roll;
+	double marks;
+	
+	void setMarks(int m)
+	{
+		//code
+	}	
+}
+
+class Cricketer
+{
+	String name;
+	String country;
+	int totRuns;
+	
+	void setTotRuns()
+	{
+		//code
+	}
+}
+
+
+Student stud1;
+String name;	//name is a reference variable which will keep the reference of a String object.
+
+Student stud1 = new Student();
+Cricketer cric1 = new Cricketer();
+
+=============================================================
+
+class 	=> data/property/state
+	=> method/bheviour/functions
+	=> instance/object
+
+Student stud1;
+stud1 = new Student();	//1,21,78.5
+
+class => data + functions => data member + member functions
+
+To access any member of a particular class we need to have an object of that class.
+With that object we use member access operator i.e. dot (.) to access the member (data or method) of that class.
+
+Object's size depend on the data and not on the methods.
+
+Each time any object is created, it will occupy new space to store its data.
+Method gets space in the memory only once and that method is used by all the objects.
+
+reference/object.member;
+
+member can be data or function.
+
+
+stud1.rollNo = 1;	//accessing data member using dot operator with the object.
+stud1.getDetails();	//accessing member function using dot operator with the object.
+
+====================================================
+
+Constructor
+------------
+
+- It is a special member function of the class whose name is similar to the class name.
+- A class can have multiple constructor.
+- The use of constructor is to initialize the data of object at the time of its creation itself.
+- If we don't define any constructor, jvm uses the default constructor. Jvm provides default constructor for each class.
+- When we define our own constructor for any class, then jvm uses that constructor and not the default constructor.
+- Constructor does not have any return type.
+- We can use public, private, protected and default access specifier with the constructor. Apart from this we can not use any other keyword/specifier with the constructor.
+
+class Student
+{
+	int roll;
+	double marks;
+	
+	Student()
+	{
+		roll = -1;
+		marks = 0.0;
+	}
+	
+	Student(int r, double m)
+	{
+		roll = r;
+		marks = m;
+	}
+	
+	//methods
+}
+
+Student stud1 = new Student();			//zero-argument constructor called here
+Student stud1 = new Student(1,21,78.5);		//three-argument constructor called here
+
+Student(int r,int a, double m)
+
+new Student(1,21,78.5)
+int r = 1; int a = 21; double m = 78.5;
+
+----------------------------------------
+Method Overloading :
+- Defining multiple methods with the same name but different arguments/parameters within the same or child class.
+- In method overloading, either number of arguments or type of arguments should differ for the same function name.
+
+ for example : defining multiple constructors within the same class.
+
+
+
+2 + 3 => 5
+2.5 + 3.7 => 6.2
+
+class AddCalculator
+{
+	void add(double a, double b)
+	{
+		System.out.println(a+b);
+	}
+	
+	void add(int a, int b)
+	{
+		System.out.println(a+b);
+	}
+}
+
+class OverloadingDemo
+{
+	public static void main(String args[])
+	{
+		AddCalculator addCal = new AddCalculator();
+		addCal.add(2.5,3.7);
+	}
+}
+
+==================================================================
+
+'this' Keyword
+-----------------
+
+- 'this' is basically reference to the current object.
+- Current object is the object which has currently active and made the function call.
+
+
+class Student
+{
+	//code
+	
+	void printDetails()
+	{
+		System.out.println(roll);
+		System.out.println(marks);
+	}
+}
+
+
+Student stud1 = new Student();
+Student stud2 = new Student();
+
+
+stud1.printDetails();  //at this point current object is stud1.
+stud2.printDetails();  //at this point current object is stud2.
+
+
+============================================
+
+local variable => Variable defined/declared inside a method. The scope of local variable is within the 
+				function only.
+				
+instance variable => variable which are part of the object.
+
+
+class Student
+{
+	int roll;	//instance variable
+	double marks;	//instance variable
+	
+	void myFun(int val)		//val is local variable
+	{
+		int temp;	//local variable
+	}
+}
+
+
+Variable Shadowing
+---------------------
+When the local variable and instance variable have the same name.
+In the case of variable shadowing, we can use 'this' to differentiate between local and instance variable.
+If we don't use this, jvm will treat it always as local variable.
+
+class Student
+{
+	int roll;
+	double marks;
+
+	Student(int roll, int marks)
+	{
+		this.roll = roll;	//instance roll = local roll
+		this.marks = marks;	//instance marks = local marks
+	}
+	
+}
+
+
+this - use in constructor chaining
+----------------------------------
+
+- We can call one constructor from another constructor using 'this()'.
+- If we call constructor using 'this()' it should always be the very first statement within the constructor.
+
+
+class Student
+{
+	int roll;
+	double marks;
+	String name;
+	String mobNo;
+	
+	Student()
+	{
+		//this();		//Compilation error: recursive constructor invocation
+		System.out.println("zero-arg constructor called");
+	}
+	
+	Student(int roll)
+	{
+		System.out.println("one-arg constructor called");
+		this();
+		this.roll = roll;
+	}
+	
+	Student(int roll, double marks)
+	{
+		System.out.println("two-arg constructor called");
+		this(roll);	//It will call one-arg constructor of Student.
+		this.marks = marks;
+	}
+	
+	Student(int roll, double marks, String name)
+	{
+		System.out.println("three-arg constructor called");
+		this(roll,marks);
+		this.name = name;	
+	}
+	
+	Student(int roll, double marks, String name, String mobNo)
+	{
+		System.out.println("four-arg constructor called");
+		this(roll,marks,name);
+		this.mobNo = mobNo;
+	}
+	
+	void printDetails()
+	{
+		System.out.println(this.roll);
+		System.out.println(this.marks);
+		this.printOtherDetails();
+	}
+	
+	void printOtherDetails()
+	{
+		System.out.println(this.name);
+		System.out.println(this.mobNo);
+	}
+	
+	
+}
+
+
+class ConstructorChainingDemo
+{
+	public static void main(String args[])
+	{
+		Student stud1 = new Student(1,78.5);
+		stud1.printDetails();
+		
+		new Student(2,74.5,"Mohit").printDetails();
+		
+	}
+}
+
+
+
+this.data member
+this.member function
+
+this();		//for constructor chaining
+
+
+
+- 'this' can be used to call any method. Unlike constructor calling using this, while we call method using 'this' then that statement need not to be the very first statement inside the function.
+- Constructor calling using 'this' should always be from inside the constructor and not from any other method.
+
+class Demo
+{
+	void myFun(int a)
+	{
+		//this();			//ERROR as myFun() is not a constructor method.
+		System.out.println("myFun(int) called");
+		this.myFun();		//Using this we can call overloaded method or any method.
+	}
+	
+	void myFun()
+	{
+		System.out.println("myFun() called");
+	}
+}
+
+class UseOfThis
+{
+	public static void main(String args[])
+	{
+		new Demo().myFun(5);
+	}
+}
+
+OUTPUT:
+myFun(int) called
+myFun() called
+
+===============================================================================
+
+Array of Objects
+-----------------
+
+class Student			//User defined data type
+{
+	int roll;
+	double marks;
+	
+	Student()
+	{
+	}
+	
+	Student(int roll, double marks)
+	{
+		this.roll = roll;
+		this.marks = marks;
+	}
+	
+	void printDetails()
+	{
+		System.out.println(roll + "," + marks);
+	}
+}
+
+class ObjectArrayDemo
+{
+	public static void main(String args[])
+	{
+		Student stud[] = new Student[5];		//int arr[] = new int[5];
+		stud[0].printDetails();		//NullPointerException
+	}
+}
+
+
+new Student[5];			
+- It is not creating array of 5 Student objects.
+- It is creating array of references to store the 5 student object's reference.
+
+stud[0].printDetails();		//0,0.0
+stud[1].printDetails();		//0,0.0
+
+
+
+-------------------------
+Java says:
+If you don't give any constructor, I will provide you the default constructor but if you define your own constructor (whether it is one, two or three argument constructor), it is now your responsibility to define the zero-arg constructor and in that case I am not going to provide you default constructor.
+
+So, its a good practice to define the zero-arg constructor also, if we define any other constructor in our class.
+
+
+class Student
+{
+	int roll;
+	double marks;
+	
+	Student(int roll, double marks)
+	{
+		this.roll = roll;
+		this.marks = marks;
+	}
+}
+
+class ConstructorDemo
+{
+	public static void main(String args[])
+	{
+		new Student(1,78.5);	//OK
+		new Student();		//Compilation ERROR as we have not defined zero-arg constructor
+	}
+}
+----------------------------
+
+instance variable and local variable
+
+instance -> object
+
+
+class Student
+{
+	int roll;		//instance variable
+	double marks;		//instance variable
+	
+	void fun(int p, int q)	//local variable p, q, x, y
+	{
+		int x;
+		float y;
+	}
+}
+
+==================================================================
+
+Static Member of class
+-----------------------
+
+- static member belongs to the entire class.
+- We use keyword 'static' to make a member (data or method) of a class static.
+- static data member of a class is not part of the object. It is part of the entire class.
+- static data member are also called as class variable.
+- We can access static member using classname.staticmember
+- We don't need any object to access the static member of the class. However we can use object.staticmember to access the static member of the class. But the good practice is to use the class name with the dot operator to access the static member of the class.
+
+class Demo
+{
+	int a;			//non-static
+	int b;			//non-static
+	static int c;	//static, as it is int its default value is 0. Can be accessed using 
+					//Demo.c
+	
+	Demo()
+	{
+		c++;
+	}
+	
+	Demo(int a, int b)
+	{
+		this.a = a;
+		this.b = b;
+		c++;
+	}
+	
+	
+	static void increment()		//static method. Can be called using Demo.increment()
+	{
+		c++;
+	}
+	
+	void print()			//non-static method
+	{
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+	}
+}
+
+class StaticDataDemo
+{
+	public static void main(String args[])
+	{
+		Demo d1 = new Demo(2,4);
+		d1.increment();
+		d1.print();
+		
+		System.out.println(Demo.c);	//OK
+		System.out.println(d1.c);	//OK
+		
+		Demo d2 = new Demo(6,8);
+		d2.increment();
+		d2.print();
+		
+		Demo d3 = new Demo(10,12);
+		d3.increment();
+		d3.print();
+		
+	}
+}
+
+
+
+static member functions
+-------------------------
+- We can create a function static by using static keyword with the function definition.
+- To access the static member function, we can use Classname.memberfunction.
+- Object can also be used to access the static member function but the good practice is to access static member function using class name.
+- We don't need any object to call the static member function.
+- non-static method call - object is must
+- static method call - object is not needed
+- We can not declare local variable as static.
+
+
+class Demo
+{
+	int a;
+	int b;
+	static int c;
+	
+	static void increment()
+	{
+		c++;
+		a++;		//ERROR, because a is non-static
+		b++;		//ERROR, because b is non-static
+		System.out.println(a);		//ERROR
+	}
+}
+
+class StaticMethodDemo
+{
+	public static void main(String args[])
+	{
+		Demo.increment();	//OK, classname.staticmethod
+		
+		Demo d1 = new Demo();
+		d1.increment();		//OK, object.staticmethod
+	}
+}
+
+new Demo().print();
+
+Rule/restriction for static methods
+--------------------------------------
+
+- Static method can access only static member(data and method) of the class.
+- Non-static method can access any member whether it is static or non-static.
+
+
+--------------------
+
+We can create object of any class inside static method.
+
+
+void myFun()
+{
+       Demo d = new Demo();	//Once control goes out of scope only reference variable will be 
+       				//vanished/destroyed and not the object.  				
+}
+
+main method is kept static so that it is the starting point of our program execution and jvm need to call the main method without creating any object.
+
+=================================================================
+
+Static & non-static block.
+-----------------------------
+
+- Block {} inside a class.
+- If we use static with block then block becomes static block otherwise it is non-static block.
+- Same rule of accessing non-static from static context will apply here also. Means, we can not access any non-static member from the static block.
+- But we can access any member (static or non-static) from the non-static block.
+- static block is called only once throughout the program execution.
+- non-static block is executed everytime when any object is created.
+- non-static => object creation/object
+
+- Order of execution
+	- A class can have multiple static and non-static block.
+	- all static blocks are executed before the non-static block even if they are kept after non-static blocks.
+	- If two or more blocks are static then their order of execution will be in the same order in which they are defined/kept inside the class. Same rule is for non-static also.
+
+- static and non-static blocks are executed always before constructor.
+- We can call/access any class member (data and functions) from the non-static block but we can call/access only static member of class (data and functions) from the static block.
+- non-static block is also known as init block or initializer block.
+
+class Demo
+{
+	int a;
+	static int b;
+	
+	static
+	{
+		//static block
+	}
+	
+	{
+		//non-static block
+	}
+}
+
+
+
+
+class Demo
+{
+	{
+		System.out.println("non-static block-1");
+	}
+	
+	static
+	{
+		System.out.println("static block-1");
+	}
+	
+	{
+		System.out.println("non-static block-2");
+	}
+	
+	static
+	{
+		System.out.println("static block-2");
+	}
+}
+
+
+Order of execution:
+static block-1
+static block-2
+non-static block-1
+non-static block-2
+
+
+
+
+Observe the output of the following program:
+-----------------------------------------------
+
+class Demo
+{
+	int a = 2;
+	static int b;
+
+	Demo()
+	{
+		System.out.println("zero-arg constructor");
+		a = 10;
+	}
+
+	static
+	{
+		System.out.println("static block");
+		b = 20;
+		anotherFun();
+	}
+	
+
+	{
+		System.out.println("non-static block");
+		a = 5;
+		print();
+	}
+
+
+	static void myFun()
+	{
+		System.out.println("myFun of Demo");
+	}
+
+	static void anotherFun()
+	{
+		System.out.println("anotherFun of Demo");
+	}
+	
+	void print()
+	{
+		System.out.println("a = " + a);
+	}
+}
+
+class BlockDemo
+{
+	public static void main(String args[])
+	{
+		//Demo.myFun();
+
+		System.out.println("Creating first object");
+		Demo d1 =new Demo();	
+		d1.print();
+
+		/*System.out.println("Creating second object");
+		new Demo();*/
+	}
+}
+
+
+OUTPUT:
+----------
+Creating first object
+static block
+anotherFun of Demo
+non-static block
+a = 5
+zero-arg constructor
+a = 10
+
+
+
+static and non-static execution flow
+----------------------------------------
+
+initialization(with default or given value) --> static block --> non-static block --> constructor
+
+class Demo
+{
+	int a = 5;
+	
+	static
+	{
+		sop("static block-1");
+	}
+	
+	{
+		sop("non-static  block");
+		a = 10;
+	}
+	
+	
+	Demo()
+	{
+		sop("zero-arg constructor");
+		a = 15;
+	}
+	
+	static void myFun()
+	{
+		sop("myFun of Demo");
+	}
+}
+
+
+psvm()
+{
+	Demo.myFun();
+	Demo d = new Demo();
+	sop(d.a);
+	
+}
+
+
+static block
+myFun of Demo
+non-static block
+zero-arg constructor
+15
+
+
+===========================================
+
+Call (function call) by value and call by reference
+
+call by value => all primitive types are passed by value.
+call by reference => all objects are passed by reference but that reference is actually passed by value.
+
+
+class First
+{
+	int val;
+	
+}
+
+class Demo
+{
+	static void myFun(int x, int y)
+	{
+		x = x + 2;
+		y = y + 2;
+		System.out.println(x);		//7
+		System.out.println(y);		//12
+	}
+	
+	static First anotherFun(First fst)
+	{
+		System.out.println(fst.val);
+		fst.val = 25;
+		return fst;
+	}
+}
+
+
+class CallByValRefDemo
+{
+	public static void main(String args[])
+	{
+		int a = 5;
+		int b = 10;
+		
+		Demo.myFun(a,b);
+		System.out.println(a);		//5
+		System.out.println(b);		//10
+		
+		First f = new First();
+		f.val = 5;
+		First f1 = Demo.anotherFun(f);			//OK
+		//First f1 = Demo.anotherFun(new First());	//OK, here new First object is created
+		System.out.println(f1.val);	//25
+	}
+}
+
+OUTPUT:
+7
+12
+5
+10
+5
+25
+
+
+-----------------------------
+
+class define
+object creation
+constructor - overload
+this
+static & non-static members
+static & non-static block
+call by value and call by reference
+
+----------------------------
+
+Java variables
+	- static variable / class variable (belongs to whole class)
+	- instance variable	(part of instance)
+	- local variable (declared inside a function)
+	
+static-method - class method
+non-static method - instance method
+
+====================================================
+
+
+Package
+---------
+
+It is a collection of related classes.
+
+java.io => all the classes related to input and output.
+java.sql => all the classes to do the database operations
+java.util => utility classes
+java.lang => All the basic / language specific classes
+
+we use 'import' keyword to use any package in our program.
+
+
+import java.io.FileReader;	//FileReader is a class inside java.io package
+import java.io.FileWriter;
+
+import java.io.*;		//It will import all the classes inside java.io package.
+class Demo
+{
+}
+
+System.out.println();		// java.lang.System
+
+java.lang package is imported by default and we don't neet to explicitly import it.
+However if we import it explicitly, it is also fine.
+
+We can create our own package also using the keyword 'package'.
+
+firstpack -> First (class)
+firstpack -> subpack -> Second (class)
+
+UseFirstSecond.java => which will import these packages and will use First and Second class.
+
+import firstpack.*;		//It will import all the classes inside the firstpack and not import  
+				//classes (here Second) from subpack
+
+import firstpack.subpack.*;	//It will import all the classes inside "firstpack.subpack" only and 
+				// not import the classes from firstpack.
+----------------------------
+				
+package firstpack;		//This statment will always be the first statement in the java file.
+
+public class First
+{
+	//code
+}
+	
+- class First is the part of firstpack package
+
+- Inside a java file we can define multiple classes and for each class there will be seperate byte code i.e .class file.
+
+- Within a java file we can not make more than one class as public.
+- If we make a class public, the java filename should be same as that public class name.
+
+src -> firstpack -> First
+src -> firstpack -> subpack -> Second, UseFirstSecond (it will use class First)
+
+shivnath@cmklshivnath:~/Programs/DAC23/Packages/src$ javac firstpack/subpack/UseFirstSecond.java 
+shivnath@cmklshivnath:~/Programs/DAC23/Packages/src$ java firstpack.subpack.UseFirstSecond 
+
+=========================================================
+
+Creating a jar file and using it.
+-----------------------------------
+
+jar => java archive file => Mainly it contains the class files (byte codes).
+
+
+jar cf firstpack.jar firstpack
+
+jar cf <target_jarfilename> <source>
+javac -cp /home/shivnath/Desktop/firstpack.jar:. UseFirstSecond.java
+java -cp /home/shivnath/Desktop/firstpack.jar:. UseFirstSecond
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

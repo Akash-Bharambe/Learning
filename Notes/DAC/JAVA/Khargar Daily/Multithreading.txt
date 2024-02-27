@@ -1,0 +1,175 @@
+Multithreading is a specialized form of thread-based multitasking where a single program can perform two or more tasks simultaneously.
+
+Multiprocessing => Multiple programs/applications running simultaneously
+Multithreading => Single programs performing multiple tasks simultaneously using threads.
+
+
+In java, each thread is an object.
+
+There are two ways to create threads in java.
+1. Using Thread class
+2. Using Runnable interface
+
+
+As each thread in java is an object so it is obvious that each thread is an specific class' object.
+
+class MyThread		//MyThread is not a Thread class.
+{
+}
+
+class MyThread extends Thread		//Now MyThread is a Thread class
+{
+}
+
+class MyThread implements Runnable		//Now MyThread is a Thread class
+{
+}
+
+
+Thread class has a method run() which must be overridden in the child Thread class.
+
+Just like as our program execution starts from main(), in the same way a thread execution starts from run() method.
+
+run() method contains the task/logic which a thread has to perform.
+
+main() itself is a thread and known as Main thread.
+
+--------------------------
+
+Thread class method
+start() : It starts the thread and executes the corresponding run() method.
+getName() : It returns the name of the current thread.
+setName() : To set the name of the thread.
+join() : Current thread waits for other thread to complete its task and join it.
+currentThread() : static method which returns current Thread object
+sleep() : static method which takes milliseconds as argument. Current thread will sleep for that period.
+
+
+-------------------
+class MyThread extends Thread
+{
+        public void run()
+        {
+                System.out.println("MyThread run method executed");
+        }
+}
+
+class ThreadDemo
+{
+        public static void main(String args[])
+        {
+                //Creating the thread objects
+                MyThread mth1 = new MyThread();		
+                mth1.start();
+                System.out.println("Main method completed");
+        }
+}
+
+
+OUTPUT:
+Main method completed
+MyThread run method executed
+
+==================================================
+It is not guaranteed that in the case of multi threads execution, threads will start and end in the same order in which they had been started or ended.
+===================================================
+
+join()
+------
+Current thread waits for other thread to complete its task and join it.
+
+Mohan & Manish are friends.
+
+Manish is saying
+I will go only when Mohan completes his work and join with me.
+
+Current Thread : Manish
+Call : Mohan.join();		//Current thread Manish is waiting for the Thread Mohan to complete its 
+				//task and join.
+
+
+==========================================
+
+Using Runnable
+
+class MyThread implements Runnable
+{
+}
+
+MyThread mth = new MyThread();		//Step1: Create Runnable Object
+Thread t = new Thread(mth);		//Step2: Create Thread Object by passing that Runnable object
+
+
+----------------
+
+class MyThread implements Runnable
+{
+	Thread t
+	
+	MyThread()
+	{
+		t = new Thread(this);	//Step2: Create Thread Object by passing that Runnable object
+	}
+}
+
+MyThread mth = new MyThread();		//Step1: Create Runnable Object
+		
+
+========================================================
+
+Synchronization
+----------------
+Whenever we talk about synchronization, think about a single object (resource) which is being accessed by more than one thread and each thread simultaneously tries to change/update the resource.
+
+two ways of synchronization 
+- synchronized method
+- synchronized block
+
+Once a thread enters the snychronized method or block over a resource (object) then we say that thread has acquired lock/monitor/semaphore over that resource object. No other thread can access any synchronized method/block over the same resource/object until the lock is released by the thread who has currently acquired the lock.
+
+
+
+
+- If a thread enters the synchronized block/method over a resource then no other threads can enter the same or different synchronized block/method until the current thread release the lock but other threads can enter the non-synchronized block/methods.
+
+
+thobj.getPriority() => NORM_PRIORITY
+
+
+wait(), notify() and notifyAll() - These all are Object class methods and not Thread class methods.
+				- These methods must be called from synchronized method/block only.
+
+once a thread goes into waiting state using wait(), it will always be resumed using notify() or notifyAll().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

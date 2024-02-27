@@ -1,0 +1,1 @@
+Thank You "<name>" for purchasing "<item>" form us worth Rs <price>/-

@@ -1,0 +1,297 @@
+final & abstract
+-------------------
+
+Can we make any class or method final as well as abstract??
+
+final class First 		//class First can not be inherited
+{
+}
+
+final abstract class First		//class First can not be instantiated
+{
+
+}
+
+class Second extends First
+{
+}
+
+
+Abstract class can be used only by inhertance through child class. It mean it becomes necessary that to use any abstract class it must be inherited. However final says that if a class is final it can not be inherited.
+
+abstract says "it must be inherited to use"
+final says "it can not be inherited"
+
+so both abstract and final contradict each other. So we can not use final and abstract simultaneously with the class and methods.
+
+========================================================
+
+Input/Output
+-------------
+File read write
+User input
+
+File
+-----
+- This is a class.
+- It is not used for input output to the file
+- It just gives the information/details of the file like whether file is directory or not or it exist or not likewise.
+
+
+File f1 = new File("myfile.txt");
+f1.exists();		//will return true or false
+f1.getName();		//will return the name of file
+
+
+ByteStream => image read, video read, audio read, network data transfer
+CharacterStream	=> character based reading/writing
+
+
+ByteStream
+-----------
+FileInputStream => To read from file
+FileOutputStream => To write to the file
+
+BufferedInputStream
+BufferedOutputStream
+
+read()	=> Reads one character at a time. returns the ascii value of the read character. returns -1 when end of file is reached.
+write()	=> will write to the file
+
+
+CharacterStream
+-------------------
+FileInputStream => FileReader
+FileOutputStream => FileWriter
+
+BufferedInputStream => BufferedReader
+BufferedOutputStream => BufferedWriter
+
+read()	=> returns ascii of the read character. Returns -1 when end of file is reached.
+write()	=> used to write to the file
+
+
+readLine() => Method of BufferedReader. It reads one line at a time. Returns null if end of file is reached. It basically sees in the file the newline character i.e. enter to identify a complete line and does not read that newline character.
+
+========================================================
+
+System.in => Keyboard
+System.out => console (default)
+System.err => console
+
+System.err.println("");		//To print error messages
+
+Reading from console
+--------------------------
+
+Scanner => We already use it.
+
+Second method => Using InputStreamReader & BufferedReader
+
+InputStreamReader is = new InputStreamReader(System.in);
+BufferedReader br = new BufferedReader(is);
+
+String inputStr;
+
+System.out.println("Enter a double value");
+inputStr = br.readLine();		//Will read each input as String 
+double dblVal = Double.parseDouble(inputStr);	//will convert String to primitive double
+
+===============================================
+
+Serialization/Deserialization
+--------------
+- Object state is saved in secondary storage.
+- It is used also while passing objects to other applications over the network.
+
+FileInputStream, ObjectInputStream - readObject()
+FileOutputStream, ObjectOutputStream - writeObject()
+
+
+
+interface Serializable
+{
+}
+
+interface which don't have any method are called as marker interface.
+
+========================================================
+
+java.io
+java.nio 
+
+NIO => New Input Output	=> Multithreading environment
+
+ByteBuffer
+FileChannel
+
+============================================================
+Assignment
+--------------
+Create collection object (list/map/set) by reading a input file with roll,name,marks. Display that collection object.
+
+studrec.csv (comma seperated value file) - Input File
+1,Rohit,75.9
+2,Mohit,89.7
+3,Geeta,69.7
+
+finalmarks.csv	- Output File
+1,Rohit,77.9
+2,Mohit,91.7
+3,Geeta,71.7
+
+
+inputfile ----> map 
+map ----> outputfile
+
+---------------------------------------
+
+String line = br.readLine();
+
+String str[] = line.split(",");			//"1","Rohit","75.9"
+
+int rollNo = Integer.parseInt(str[0]);
+String name = str[1];
+double marks = Double.parseDouble(str[2])
+
+Student stud = new Student(rollNo,name,marks);
+
+myList.add(stud);
+
+myMap.put(rollNo,stud);
+
+Studetnt s = myMap.get(rollNo);
+myFun(s)
+
+myFun(Student s)
+{
+	System.out.println(s.rollNo);
+}
+
+====================================================================
+
+Date : October 15, 2023
+--------------------------
+
+NIO => New Input Output
+-------------------------
+in java.nio
+
+Buffer   => ByteBuffer
+Channel	 => FileChannel
+Selector  => Works as multiplexer to select one from multiple channels. It checks which channel is free to serve and will select that one.
+
+Difference between java.io & java.nio
+--------------------------------------
+
+In java IO - Blocking IO, In NIO - Non-blocking IO 
+blocking -> One thread waits until a read/write operation is completed
+non-blocking -> One thread can do some other task while read/write operation is in progress.
+
+
+In java IO - Stream based, In NIO - Channel based
+Stream -> One way transfer
+Channel -> Two way transfer
+
+====================================================================
+
+File class
+----------
+
+File f = new File("myfile.txt");
+
+In java directory is also treated as file which contains multiple files.
+
+
+String folderPath = "/home/shivnath/Documents/";
+
+File f = new File(folderPath);
+
+String filenames[] = f.list();
+
+for(String fname : filenames)
+{
+	//Read each file			//filepath = "/home/shivnath/Documents/myfile1.txt"
+	String filepath = folderPath + fname;
+	File f1 = new File(filepath);
+	FileReader fr = new FileReader(f1);
+	BufferedReader br = new BufferedReader(fr);
+	//remaining same as we did earlier
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

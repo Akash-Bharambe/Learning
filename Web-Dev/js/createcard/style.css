@@ -1,0 +1,32 @@
+#container .card {
+  display: flex;
+}
+.card img {
+  width: 30vw;
+  height: 20vw;
+  border-radius: 2vw;
+  object-fit: cover;
+}
+.img{
+    position: relative;
+
+}
+.img span {
+  position: absolute;
+  z-index: 100;
+  right: 3%;
+  bottom: 7%;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 0.8rem;
+}
+
+.contents {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 8vw;
+}

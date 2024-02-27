@@ -1,0 +1,1204 @@
+Exception is basically runtime error which interrupts our program execution.
+Exception is runtime error due to which our program terminates in between its execution.
+
+Exception handling is handling the exceptions so that our program should not terminate and should its execution even if exception occurs at runtime.
+
+
+int a = 5;
+int b = 0;
+
+int res = a / b;	//exception at runtim as it is division by zero
+System.out.println(res);	
+
+Exceptions can be handled using following keywords
+
+try
+catch
+throw
+throws
+finally
+
+--------------------------
+
+try block => Part of code which may generate exception or where exception may be generated that part of code is kept inside try block.
+
+---------------------------------
+
+//code
+//code
+try
+{
+	//code which probably may generate some exception
+}
+
+//code
+-----------------------
+
+catch block => handles the exception
+
+It is associate with the try block.
+If any exception is generated inside the try block, the respective catch block will catch the exception.
+
+try
+{
+	//code
+}
+catch()
+{
+	//will handle the exception generated in the try block.
+}
+
+
+In java, each exception is represented by an object.
+There are multiple exception classes defined inside java which are used to create Exception object at runtime.
+
+Ex. : ArithmeticException, IOException, NullPointerException etc.
+
+If an exception occurs inside the try block, the respective catch block catches the exception and handles it and after handling control will not go back inside the try block, rather it will continue to execute the program after the catch block handler.
+
+------------------------------------------------------------
+
+finally 
+--------
+
+finally block will always execute whether exception occurs or not.
+a try block can have multiple catch blocks without any finally block.
+a try block can have only a finally block without catch block.
+a try block can have only a catch block without finally block.
+Order must be try --> catch ---> finally
+
+only try block can not exist. There must be either catch or finally block with try block. (special case is try with resources where try block exists without any catch or finally block).
+
+
+try
+{
+	//code
+}
+finally
+{
+}
+
+---------------------------
+
+try
+{
+}
+catch()
+{
+}
+
+-------------------------
+
+
+try
+{
+}
+catch()
+{
+}
+catch()
+{
+}
+catch()
+{
+}
+
+------------------------------
+
+try
+{
+}
+catch()
+{
+}
+catch()
+{
+}
+finally
+{
+}
+----------------------------
+Only try block not allowed (special case try with resources which we will see later)
+try
+{
+}
+
+------------------------------
+only catch not allowed
+following is not valid.
+
+catch()
+{
+}
+
+-------------------------------
+only finally not allowed
+
+finally
+{
+}
+
+---------------------------------
+
+In short,
+
+try block is must
+with try we can take catch() and/or finally block
+
+---------------------------------
+
+
+try with finally only
+-----------------------
+
+
+int a = 5;
+int b = 0;
+
+int res  = 0;
+
+try
+{
+	//resources open
+	res = a/b;		//Exception will be generated here
+}
+finally				//It is not handler
+{
+	//resources close
+	System.out.println("finally block executed");
+}
+
+System.out.println("Program executed successfully!!");
+
+
+OUTPUT:
+finally block executed
+
+
+If we use try with finally without any catch block in that case if any exception occurs, finally block will be executed and as we have not handled the exception using catch block, our porgram will terminate from there.
+
+try with finally only and not catch block -> if exception occurs -> finally block will execute and program terminate.
+
+---------------------------------------------------
+
+int arr[] = {2,4,6,8,10};
+int a = 5;
+int b = 1;
+int res = 0;
+
+try
+{
+	res = a / b;
+	System.out.println(arr[5]);	
+}
+catch(ArithmeticException ae)
+{
+	System.out.println("ArithmeticException caught");
+}
+catch(ArrayIndexOutOfBoundsException ae)
+{
+	System.out.println("ArrayIndexOutOfBoundsException caught");
+}
+
+If a try block has multiple catch blocks then in the case of exception only one catch block will be executed depending upon the type of exception object being generated. Once a catch block is executed, other catch blocks are skipped and program execution continues after the catch blocks.
+
+
+--------------------------------------------------------------
+Universal Handler or Catch-all exception
+
+
+try
+{
+	//code
+} 
+catch(Exception e)
+{
+	//all exception genrated inside try block will be caught here
+	//because Exception is the parent class for all the exception classes
+}
+
+===============================================================================
+
+
+try
+{
+	//resources open (File IO connection, DBConnection)
+	//code
+}
+finally
+{
+	//resources close (All opened connection inside try can be closed here)
+}
+
+//code
+
+----------------------------------------------------------------
+
+Date: 11 October, 2023
+-----------------------
+
+The statements present in the finally block execute even if the try block contains control transfer statements like return, break or continue.
+
+class FinallyDemo3
+{
+        public static void myFun()
+        {
+                System.out.println("myFun called");
+                try
+                {
+                        if(true) return;
+                }
+                finally
+                {
+                        System.out.println("finally block");
+                }
+
+                System.out.println("Out of try-finally");
+        }
+
+        public static void main(String args[])
+        {
+                System.out.println("Program started execution");
+                myFun();
+                System.out.println("Program terminated successfully!!");
+        }
+}
+
+
+OUTPUT:
+Program started execution
+myFun called
+finally block
+Program terminated successfully!!
+
+----------------------------------------------------------------
+
+Exception class important methods:
+----------------------------------
+1. getMessage()
+2. printStackTrace()
+
+Always focus on first line of printStackTrace() output because that line gives you idea at which line actually exception generated and then try to fix/resolve it.
+
+
+class PrintStackTraceDemo
+{
+	public static void myFun()
+	{
+		anotherFun();
+	}
+
+	public static void anotherFun()
+	{
+		int res = 5 / 0;
+	}
+
+	public static void main(String args[])
+	{
+		System.out.println("Program started...");
+		try
+		{
+			myFun();
+		}
+		catch(Exception ae)
+		{
+			//System.out.println("exception caught here");
+			ae.printStackTrace();
+			//System.out.println(ae.getMessage());
+		}
+		System.out.println("Program executed successfully");
+
+	}
+}
+
+OUTPUT:
+Program started...
+exception caught here
+java.lang.ArithmeticException: / by zero
+	at PrintStackTraceDemo.anotherFun(PrintStackTraceDemo.java:10)
+	at PrintStackTraceDemo.myFun(PrintStackTraceDemo.java:5)
+	at PrintStackTraceDemo.main(PrintStackTraceDemo.java:18)
+Program executed successfully
+
+-------------------------------------------------------------------------------
+
+throw keyword
+--------------
+
+- It is a keyword.
+- It is used to explicitly throw any exception.
+- It is used to rethrow an exception.
+- throw statement need not to be inside try block. It can or can not be inside the try block.m
+
+class ThrowDemo
+{
+	public static void main(String args[])
+	{
+		System.out.println("Program execution started...");
+		try
+		{
+			System.out.println("try block");
+			//ArithmeticException excp = new ArithmeticException();
+			//throw excp;
+		
+			throw new ArithmeticException("Number division by zero exception");
+		}
+		catch(ArithmeticException ae)
+		{
+			System.out.println("ArithmeticException caught : "+ae.getMessage());
+		}
+		System.out.println("Program execution completed successfully");
+	}
+	
+}
+
+OUTPUT:
+Program execution started...
+try block
+ArithmeticException caught : Number division by zero exception
+Program execution completed successfully
+
+---------------------------------------------------------------
+ArithmeticException ae = throw new ArithmeticException();
+System.out.println(ae.getMessage());			//will print null.
+
+ArithmeticException ae = throw new ArithmeticException("Number division by zero exception");
+System.out.println(ae.getMessage());			//will print Number division by zero exception	
+---------------------------------------------------------------
+Suppose we are doing some arithmetic operation with a and b and there is requirement 
+that a and b should be either zero or positive value.
+
+int a
+int b
+
+try
+{
+	if(a < 0)
+	{
+		throw new ArithmeticException("variable a should be zero or positive value");
+	}
+	if(b < 0)
+	{
+		throw new ArithmeticException("variable b should be zero or positive value");
+	}
+}
+catch(ArithmeticException ae)
+{
+	System.out.println("Exception: " + ae.getMessage();
+}
+----------------------------------------------------------------
+An exception object rethrown must be caught and handled again by the calling method otherwise our program will terminate.
+
+class RethrowDemo
+{
+	public static void myFun()
+	{
+		try
+		{
+			int res = 5/0;
+		}
+		catch(ArithmeticException ae)
+		{
+			System.out.println("ArithmeticException caught here inside myFun");
+			throw ae;		//Rethrowing the exception
+		}
+	}
+	
+	
+	public static void main(String args[])
+	{
+		System.out.println("Program execution started..");
+		try
+		{
+			myFun();
+		}
+		catch(ArithmeticException ae)
+		{
+			System.out.println("ArithmeticException caught here inside main");
+		}		
+		System.out.println("Program execution completed successfully!!");
+	}
+}
+
+
+OUTPUT:
+Program execution started..
+ArithmeticException caught here inside myFun
+ArithmeticException caught here inside main
+Program execution completed successfully!!
+
+
+======================================================
+
+throws keyword
+----------------
+
+- It is also a keyword.
+- It is used with function declaration.
+- Using throws called function says to the calling function that "I might throw these type of exceptions, you please take of that and handle it".
+- A function can mention multiple exception in throws statement which means it might throw any of these exceptions.
+
+import java.io.*;
+
+class ThrowsDemo
+{
+	static void myFun() throws ArithmeticException,IOException	//called method
+	{
+		System.out.println("myFun called");
+		int res = 5/0;
+		
+		//Code: Reading a file which does not exist in file path: This will generate IOException
+	}
+	
+	public static void main(String args[])		//main is calling method
+	{
+		try
+		{
+			myFun();
+		}
+		catch(IOException excp)
+		{
+			System.out.println("IOException caught inside main");
+		}
+		catch(ArithmeticException ae)
+		{
+			System.out.println("ArithmeticException caught inside main");
+		}
+		System.out.println("Program terminated successfully");
+	}
+}
+
+OUTPUT
+---------
+myFun called
+ArithmeticException caught inside main
+Program terminated successfully
+
+
+================================================================
+
+Checked and Unchecked Exceptions
+------------------------------------
+All Exceptions divided into two parts => Checked & Unchecked
+
+Checked Exceptions : Exceptions which must be handled and compiler will also force the programmer to 
+			handle those exceptions. If it is not handled, compiler will give error.
+			ex: IOException, FileNotFoundException
+			
+Unchecked Exceptions: Exceptions which is not mandatory to be handled for successful compilation of code 			
+			i.e. if it is not handled, compiler will not give any error and will compile the 
+			code successfully.
+			ex: ArithmeticException, ArrayIndexOutOfBoundsException, NullPointerException
+
+================================================================
+
+Creating our own Exception classes
+--------------------------------------
+
+To create our own exception class we will have to inherit either Exception or RuntimeException class.
+To create a checked exception class, we will have to inherit Exception class.
+To create an unchecked exception class, we will have to inherit RuntimeException class.
+
+---------------------
+class MyException extends Exception			//Checked exception
+{
+}
+
+Now MyException is a checked user defined exception class.
+----------------------------
+
+class MyException extends RuntimeException		//Unchecked exception
+{
+}
+Now MyException is a checked user defined exception class
+
+-------------------------
+
+Example code:
+class MyException extends Exception		//Checked exception
+{
+}
+
+class UserDefinedCheckedExceptionClassDemo
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			throw new MyException();
+		}
+		catch(MyException me)
+		{
+			System.out.println("MyException caught here");
+		}
+		
+		System.out.println("Program terminated successfully");
+	}
+}
+
+
+OUTPUT:
+MyException caught here
+Program terminated successfully
+
+----------------------------------------------------------
+
+class MyException extends Exception		//Checked exception
+{
+	
+	MyException()
+	{
+	}
+		
+	MyException(String msg)
+	{
+		super(msg);
+	}
+}
+
+class UserDefinedCheckedExceptionClassDemo
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			throw new MyException("MyException due to some logical error");
+		}
+		catch(MyException me)
+		{
+			System.out.println("MyException caught here");
+			System.out.println(me.getMessage());
+		}
+		
+		System.out.println("Program terminated successfully");
+	}
+}
+
+OUTPUT:
+MyException caught here
+MyException due to some logical error
+Program terminated successfully
+
+-----------------------------------------------------
+//Below is Just an Assumption 
+class Throwable
+{
+	private String message;
+	
+	Throwable(String message)
+	{
+		this.message = message;
+	}
+	
+	String getMessage()
+	{
+		return message;
+	}
+}
+
+class Exception extends Throwable
+{
+	Exception()
+	{
+	}
+	Exception(String message)
+	{
+		super(message);
+	}
+}
+
+class MyException
+{
+	MyException(String message)
+	{
+		super(message);
+	}
+}
+
+
+Throwable <---- Exception <---- MyException
+
+------------------------------------------------------
+
+
+
+Overriding getMessage()
+-------------------------
+class MyException extends Exception		//Checked exception
+{
+	String msg;
+	
+	MyException()
+	{
+	}
+		
+	MyException(String msg)
+	{
+		super(msg);
+		this.msg = msg;
+	}
+	
+	public String getMessage()
+	{
+		return msg;
+	}
+}
+
+class UserDefinedCheckedExceptionClassDemo
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			throw new MyException("MyException due to some logical error");
+		}
+		catch(MyException me)
+		{
+			System.out.println("MyException caught here");
+			System.out.println(me.getMessage());
+		}
+		
+		System.out.println("Program terminated successfully");
+	}
+}
+
+OUTPUT:
+MyException caught here
+MyException due to some logical error
+Program terminated successfully
+
+---------------------------------------------------------------
+
+import java.io.*;
+
+class MyException extends Exception		//Checked exception
+{
+	MyException()
+	{
+	}
+		
+	MyException(String msg)
+	{
+		super(msg);
+	}
+}
+
+class UserDefinedCheckedExceptionClassDemo1
+{
+	static void myFun() throws MyException
+	{
+		System.out.println("myFun called");
+		throw new MyException("MyException object");
+	}
+	
+	public static void main(String args[])
+	{
+		myFun();		
+		System.out.println("Program terminated successfully");
+	}
+}
+
+(following output came because MyException is checked exception and we are not handling it.) 
+
+OUTPUT:  
+UserDefinedCheckedExceptionClassDemo1.java:25: error: unreported exception MyException; must be caught or declared to be thrown
+		myFun();
+
+=======================================================================
+
+try with resources
+--------------------
+
+try
+{
+	FileReader fr = new FileReader("myfile.txt");
+}
+catch()
+{
+}
+finally
+{
+	fr.close();
+}
+
+
+----------------
+
+
+try(FileReader fr = new FileReader("myfile.txt"))
+{
+	//code
+}
+catch(Exception e)
+{
+}
+finally
+{
+	//Now we don't need to explicitly close the file reader connection i.e. fr.close();
+	//Because as we are using try with resources, it will automatically be closed whether any 
+	//exception takes place or not.
+}
+
+--------------------------------
+
+import java.io.*;
+
+class TryWithResourcesDemo
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			try(FileReader fr = new FileReader("/home/shivnath/myfile.txt"); PrintWriter pr = new PrintWriter("/home/shivnath/output.txt"))
+			{
+				//fr = new FileReader("/home/shivnath/myanotherfile.txt");
+				System.out.println("within try block");
+			}
+			
+		}
+		catch(IOException excp)
+		{
+			System.out.println("File not found exception");
+		}
+
+		System.out.println("Program execution completed successfully!!");
+
+	}
+}
+
+OUTPUT:
+within try block
+Program execution completed successfully!!
+
+--------------------------------
+
+interface AutoClosable
+{
+	public void close();
+}
+
+FileReader implements AutoClosable
+{
+}
+
+PrintWriter implements AutoClosable
+{
+}
+
+----------------------------------------
+In try-with-resources, we can create object of those classes only which implements AutoClosable interface.
+
+This is the special case i.e. try-with-resources where we can write try without any catch or finally block. However if we want we can add catch and finally block there.
+--------------------------------
+
+===========================================================
+
+Multiple catch block
+-----------------------
+
+In the case of multiple catch block, child class handler must always come before the parent class handler.
+
+----------------------
+following is valid
+
+try
+{
+	//code
+}
+catch(ArithmeticException ae)
+{
+}
+catch(Exception e)
+{
+}
+
+-----------------
+following is invalid as Exception is the parent class of ArithmeticException and it is coming before it in the handler sequence. It will give compilation error.
+
+try
+{
+	//code
+}
+catch(Exception e)
+{
+}
+catch(ArithmeticException ae)
+{
+}
+
+----------------------------
+class MultipleCatchBlockDemo
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			//code
+		}
+		catch(Exception e)
+		{
+		}
+		catch(ArithmeticException ae)
+		{
+		}
+		System.out.println("Program execution completed successfully!!");
+	}
+}
+
+OUTPUT:
+MultipleCatchBlockDemo.java:12: error: exception ArithmeticException has already been caught
+		catch(ArithmeticException ae)
+
+================================================================================
+
+Single catch block to handle multiple exceptions
+----------------------------------------------------
+
+try
+{
+	//It can throw multiple exceptions
+	//can throw ArithmeticException,IOException,NullPointerException
+}
+catch(ArithmeticException ae)
+{
+}
+catch(IOException excp)
+{
+}
+catch(NullPointerException excp)
+{
+}
+
+-------------------------
+Alternate solution:
+
+try
+{
+	//It can throw multiple exceptions
+	//can throw ArithmeticException,IOException,NullPointerException
+}
+catch(ArithmeticException | IOException | NullPointerException ae)
+{
+	//code
+}
+catch(Exception e)
+{
+	//code
+}
+
+When we use single catch block to handle multiple exception types then we must take care that there must not be any parent child relationship between the mentioned exception types.
+
+So, following is NOT VALID as IOException is parent of FileNotFoundException.
+
+try
+{
+	//It can throw multiple exceptions
+	//can throw ArithmeticException,IOException,NullPointerException
+}
+catch(ArithmeticException | IOException | FileNotFoundException ae)
+{
+	//code
+}
+
+==============================================================
+
+Nested Try Catch Block
+-------------------------
+
+try
+{
+	//code-part1
+	
+	try
+	{
+		//code-part2
+	}
+	catch(ExceptionType3 e)
+	{
+	}
+	catch(ExceptionType4 e)
+	{
+	}
+}
+catch(ExceptionType1 e)
+{
+}
+catch(ExceptionType2 e)
+{
+}
+
+
+In nested try-catch block, outer handler is applicable to the inner try block also.
+If any exception is generated in the inner try block, it is first tried to be handled by the inner handler and if it is not handled there then it will check the outer handler and will be handled there.
+
+
+Case-1:
+---------
+code-part1 : suppose ExceptionType3 generated
+
+Outcome:
+Program will terminate in between its execution
+
+
+Case-2:
+-----------
+code-part2 : suppose ExceptionType2 is generated
+
+Outcome:
+Outer handler for ExceptionType2 will be executed and program will not terminate in between its execution.
+
+===============================================================
+Another example of nested try-catch
+
+void myFun()
+{
+	try
+	{
+		//code-part2
+	}
+	catch(ExceptionType3 e)
+	{
+	}
+	catch(ExceptionType4 e)
+	{
+	}
+}
+
+psvm()
+{
+	try
+	{
+		//code-part1
+		myFun();
+	}
+	catch(ExceptionType1 e)
+	{
+	}
+	catch(ExceptionType2 e)
+	{
+	}
+}
+
+==============================================================
+
+class ThrowsIOExceptionDemo
+{
+	static void myFun() throws IOException
+	{
+		anotherFun();
+	}
+	
+	static void anotherFun() throws IOException
+	{
+		//code
+		throw new IOException("Explicitly generated IOException");
+	}
+	
+	public static void main(String args[]) throws IOException
+	{
+		System.out.println("Program started...");
+		myFun();
+		System.out.println("Program executed successfully!!");
+	}
+}
+
+OUTPUT:
+Program started...
+Exception in thread "main" java.io.IOException: Explicitly generated IOException
+	at ThrowsIOExceptionDemo.anotherFun(ThrowsIOExceptionDemo.java:13)
+	at ThrowsIOExceptionDemo.myFun(ThrowsIOExceptionDemo.java:7)
+	at ThrowsIOExceptionDemo.main(ThrowsIOExceptionDemo.java:19)
+
+
+------------------------------
+
+There is only one way to handle the exception and that is catch block.
+If we don't handle any exception (checked or unchecked), our program will definitely terminate.
+
+catch block => exception handler.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

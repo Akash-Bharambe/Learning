@@ -1,0 +1,40 @@
+/* Style for code blocks 
+pre {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+ Style for inline code
+code {
+  font-family: "Courier New", Courier, monospace;
+  color: rgb(0, 0, 0);
+  background-color: hsla(0, 0%, 97%, 0);
+  padding: 2px 4px;
+  border: 0px solid #ccc;
+  border-radius: 3px;
+}
+*/
+:not(pre):not(.hljs) > code {
+	color: #000000; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+pre {
+  font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border: 1px solid #333;
+  padding: 2px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+pre code {
+  font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  background-color: #09ff0000;
+  padding: 1px 1px;
+  text-size-adjust: 13px;
+} 

@@ -1,0 +1,1555 @@
+javadoc -d <destination folder> <java file path>
+
+Scope of a variable
+=====================
+Area or region where a variable can be used or accessed. or we can say area where the variable is known.
+
+int a = 10;
+
+Scope is determined by opening and closing bracket for a given variable
+We can not declare two variables with the same name in the same scope.
+
+class ScopeDemo
+{
+
+        public static void myFun()
+        {
+                int a = 10;
+                System.out.println(a);  //OK
+
+                {
+                        int a = 15;     //ERROR; variable a is already declared in this scope.
+                        int b = 5;
+                        System.out.println(b);
+                }
+
+		{
+                    int b = 15;             //OK
+                    System.out.println(b);
+                }
+
+        }
+
+        public static void main(String args[])
+        {
+                myFun();
+                //System.out.println(a);        //ERROR
+        }
+}
+
+
+=====================
+
+class LiteralDemo
+{
+        public static void main(String args[])
+        {
+                //int num = 93;
+                //int num = 0135;		//Octal value as preceded by zero.
+                int num = 0X5D;			//Hexadecimal value as preceded by 0x, convert it to decimal first and then 
+                					//that value will be printed. Same is for octal.
+                System.out.println(num);
+        }
+}
+
+============================
+
+By default the data type of any integer literal is int.
+By default the data type of any float literal is double.
+
+literals example : 50, 105, 45.7, 'x', true, false
+
+long val = 100;		//OK
+long val = 2361111111;	//ERROR, integer value is too large.
+long val = 2361111111L;		//Now OK. We can use small or capital L to tell the compiler to consider 
+				//this literal value as long and not int.
+
+float f = 34.7;			//float = double ; ERROR: possible lossy conversion
+float f = 34.7f;		//OK, 34.7 will be treated as float and not as double. Use f or F.
+
+
+char ch = 'a';
+char ch ='\141';		//Octal
+char ch = '\u0061';		//Hexadecimal
+
+s.o.p.(ch);		//all the above three initialisation will store 'a' in ch and will print 'a'.
+
+
+================================
+
+System.out.println(""Hello Friends"");		//ERROR
+System.out.println("\"Hello Friends\"");
+			
+===============================
+
+long val = 200;
+long val = 2561111111L;
+
+float f = 25.3;			//float(4 bytes) = double (8 bytes) => possible lossy conversion
+float f = 25.3f;		//OK
+
+double d = 25.3;		//OK
+double d = 25.3D;		//OK
+
+===================================
+
+
+Data Conversion
+=================
+
+- Assigning one data type into another data type.
+- First of all during conversion compiler sees whether the assignment or conversion is type comaptible or not.
+
+double = int		//type compatible
+int = double		//type compatible
+int = boolean		//not type compatible
+
+- Then it checks whether it is a lossy conversion or not.
+	- larger size data type = smaller size data type 	//That is fine.
+	- smaller size data type = larger size data type	//Possible lossy conversion.
+	
+	long = int;		//OK
+	int = long;		//Possible lossy conversion; compiler will show error.
+	
+	float = double;		//Possible lossy conversion.
+	
+	float f = 25.3;
+
+
+- Widening conversion (upcasting, implicit conversion) - Assigning smaller data type into larger data type. It does not need typecasting.
+	larger data type = smaller data type;
+	long = int
+	
+	
+- Narrowing conversion	(downcasting, explicit conversion) - Assigning larger data type into smaller data type. It needs typecasting.
+	smaller data type = larger data type;
+	int = long
+	
+- Typecasting can be used to do the assignment between different data type.
+
+	float f = (float)25.3;
+	
+	double d;		
+	f = (float)d;
+	
+	int a = 25.4;		//type compatible but lossy conversion so compiler shows error
+	
+	int a = (int)25.4;	//OK and the fractional part is truncated and stored in a
+	sop(a);			//Will print 25
+	
+	
+	
+	
+int => 00000000 00000000 00000001 00000010 => 258
+byte => 00000010 => 2			(if byte = int assignment is done)
+
+int a = 258;
+byte b = a;
+sop(b);		//It will print 2.
+
+==========================================
+Java uses 2's complement to represent a negative number.
+
+Binary Input : 		00100110
+1's complement - 	11011001
+2's complement - 	11011010	(java uses this)
+
+int a = 130;
+byte b = (byte)a;
+sop(b);			//will print -126
+
+int => 130 =>  00000000 00000000 00000000 10000010
+byte => 130 => 10000010 => 2's complement => 01111110
+
+float f = 130.56f;
+byte b = (byte)f;
+sop(b);			//will print -126
+
+int a = 65;
+char ch;
+ch = (char) a;		//ch will contain character A which is represented by ascii value 65.
+sop(ch);		//will print character 'A'
+
+
+char ch = 'D';
+int a = ch;
+sop(a);		//will print ascii of 'D' i.e. 68
+
+=======================================================
+
+Type Promotion
+-----------------
+
+
+int a = 5;
+short b = 10;
+long c = 23;
+
+long res = a * b * c;			
+
+//int * short * long
+//long * long * long => result is also long
+
+class TypePromotionDemo
+{
+        public static void main(String args[])
+        {
+                int a = 5;
+                short b = 10;
+                long c = 15;
+
+                int res = (int)(a + b + c) ;	//Typecasting is must here.
+                System.out.println(res);
+        }
+}
+
+===========================================
+byte & short : These will always be promoted to int in the expression while doing calculation.
+
+byte a = 25;
+byte b = 30;
+
+byte c = a + b;	//int + int and result is of type int so we are trying byte = int hence lossy conversion 	 
+			//error
+
+int c = a + b; 		//OK
+byte c = (byte)(a + b);	//OK
+
+====================================
+
+Identifiers => Name of variable,method,class
+class Name => Upper Camel Case => ex. MyFirstProgram
+variable/method/object name => lower camel case => ex. int totalCount
+
+======================================
+
+Operators
+------------
+
+int a = 5;
+a = a + 1;	// a += 1;
+a = a * 2;	// a *= 2;	
+
+increment/decrement operator
+-----------------------------
+
+int x = 5;
+int y;
+y = ++x;	// y : 6, x : 6
+y = x++;	// y : 5, x : 6
+
+y = ++x;	//first value of x will be incremented by 1 and then incremented value will be assigned
+y = x++;	//first value of x will be assigned to y and then x will be incremented by 1.
+
+-------------
+
+int x = 5;
+int y;
+y = x++ * ++x;		//y = 5 * 7 
+sop(x);		//will print 7
+sop(y);		//will print 35
+
+y = ++x * ++x;		//y = 6 * 7 => x = 7, y = 42
+
+---------------------
+
+int a = 5;
+int b = -a;
+sop(b);		//will print -5
+
+---------------------------------------------------
+
+Bitwise operators
+
+| => OR 	=> if any of the two bits is 1 then result is 1 
+& => AND	=> if any of the two bits is 0	then result is 0
+~ => NOT	=> it will complement, means give 1 for 0 and 0 for 1 (1's complement)
+^ => XOR	=> if both the bits are same then 0 otherwise 1
+
+
+int a = 5;
+int b = 10;
+
+int c;
+
+c = a | b;	
+sop(c);		//will print 15
+
+c = a & b;
+sop(c);		//will print 0
+
+c = ~a;
+sop(c);		//will print -6
+
+c = a ^ b;
+sop(c);		//will print 15
+
+--------------------------------------
+
+Left Shift Operator => <<
+Left shift gives multiplication by 2
+
+int a = 6;
+int b = a << 1;
+sop(b);		//will print 12
+
+int a = 6;
+int b = a << 2;
+sop(b);		//will print 24
+
+---------------------------------------
+
+right shift operator => >>
+It gives division by 2.
+
+int a = 6;
+int b = a >> 1;
+sop(b);			//will print 3
+
+int a = -6;
+int b = a >> 1;
+sop(b);			//will print -3
+
+--------------------------------------
+
+right shift with zero fill => >>>
+
+int a = -6;
+int b = a >>> 6;
+sop(b);
+
+byte a = -6;
+byte b = (byte)(a >>> 1);
+sop(b);
+
+--------------------------------------
+
+int x = 10;
+y = x++ + --x;	//
+
+
+x = 10
+y = 20
+
+
+byte b = 20;		//OK
+byte b = 130;		//lossy conversion int to byte as out of range of byte
+
+float f = 23.5;		//lossy conversion
+float f = 23.5f;	//OK
+float f = (float)23.5;	//OK
+
+double d = 23.5;	//OK
+
+>>>
+int a = -6;
+byte b = (byte)(a >> 1);		//b = 11111101 => -3
+00000000 00000000 00000000 00000110
+11111111 11111111 11111111 11111010	=> -6 
+11111111 11111111 11111111 11111101	=> -3
+00000000 00000000 00000000 00000011
+
+
+11110010 = -14
+1's comp + 1 = 2's comp
+00001101 + 1 = 00001110
+
+----------------------------------------------
+
+a = a + 1;
+a += 1;
+
+a = a + b;
+a += b;
+
+a *= b;
+
+a = a >> 2;
+a >>= 2;
+
+numeric types are type compatible with each other.
+byte,short,int,long,float,double are type compatible with each other.
+all the lossy conversion are kept into incompatible category.
+
+char is type compatible with numeric types.
+
+boolean is type compatible with itself only.
+--------------------------------------------------------
+
+Bitwise logical operators : &, |, ~, ^  => will be applied on some numeric values
+int a = 6;
+int b = 10;
+int c = a & b;	//AND
+int c = a | b;	//OR
+int c = ~a;	//NOT
+int c = a ^ b;	//XOR
+---------------------------------
+
+Boolean logical operators : &, |, !, ^ => will be applied on some boolean values
+
+true & true = true;
+true & false = false;
+true | false = true;
+false | false = false;
+!true = false
+true ^ true = false;
+false ^ false = false;
+
+---------------------
+boolean a = true;
+boolean b = false;
+
+boolean res = a ^ b;
+sop(res);	//true
+
+---------------------------------------
+Logical AND && and Logical OR ||
+
+& , &&
+
+
+int x = 5;
+int y = 10;
+
+if(x > 5 & y++ < 15)		//false & true => false, x = 5, y = 11
+{
+	x++;
+}
+
+sop(x);
+sop(y);
+
+if(x > 5 && y++ < 15)		//false, x = 5, y = 10
+{
+	x++;
+}
+
+sop(x);
+sop(y);
+
+----------------------
+
+int x = 5;
+int y = 10;
+
+if(x == 5 | y++ < 15)		//false & true => false, x = 6, y = 11
+{
+	x++;
+}
+
+sop(x);
+sop(y);
+
+if(x == 5 || y++ < 15)		//true, x = 6, y = 10
+{
+	x++;
+}
+
+sop(x);
+sop(y);
+
+
+t || t = t		//same for |
+t || f = t		//same for |
+f || t = t		//same for |
+f || f = f		//same for |
+
+t && f = f		//same for &
+f && t = f		//same for &
+f && f = f		//same for &
+t && t = t		//same for &
+
+
+-----------------------
+
+int a = 5;
+int b = 10;
+
+if(!a > b)		//Compilation error 
+{
+}
+
+if(!(a > b))            //true
+{
+        System.out.println("a is not greater than b");
+}
+
+
+a + b;		// a and b are operands, + is operator (binary operator) because it requires two operand
+
+++a;		//a is the operand, ++ is operator (unary operator) because it requires one operand
+
+----------------------------------
+
+int x = 10;
+int y = 20;
+int z = 30;
+
+int x = 10,y = 20,z = 30;
+x = y = z = 50;
+sop x, y, z  all will print 50.
+
+x = 10;
+y = 20;
+
+System.out.println("val of x = " + x + ", val of y = " + y);
+//whatever we put inside double quote that will be printed as it is.
+
+val of x = 10, val of y = 20;
+
+System.out.println();	//It takes the cursor to the new line after printing 
+System.out.print(); //It does not take the cursor to the new line after printing
+
+-----------------------
+
+Ternary Operator ?:
+
+//To print true if a is greater otherwise print false
+
+-------------
+int a = 5;
+int b = 10;
+
+
+if(a > b)
+{
+	sop("true");
+}
+else
+{
+	sop("false");
+}
+
+
+-------------------
+int a = 5;
+int b = 10;
+
+boolean res = a > b ? true : false;  //If a is greater than b then return true otherwise return false.
+
+sop(res);	//will print false
+
+-----------------
+
+int a = 5;
+int b = 10;
+
+int res = a > b ? a : b;  //If a is greater than b then return a otherwise return b.
+
+sop(res);	//false
+
+-------------------------------------------------------------------------------
+conditional statment ? return value for true case : return value for false case
+--------------------------------------------------------------------------------
+
+int a = 5;
+int b = 10;
+int c = 15;
+
+int res = a > b ? (a > c ? a : c) : (b > c ? b : c);
+sop(res) ; //15
+
+
+for(int i = 0,j = 5; i < j; i++,j--)
+
+----------------------------------------------
+Loop - initialization, condition, increment/decrement/loop counter
+
+initialization
+while(condition)
+{
+	//increment/decrement/loop counter
+}
+
+initialization
+do
+{
+	//increment/decrement/loop counter
+}while(condition);
+
+//When we need to do atleast one iteration, we will use do while
+
+for(initialization; condition;  increment/decrement/loop counter)
+{
+
+}
+
+multiple initilization and multiple increment decrement is possible but condition will always be only one.
+
+
+for(int i = 1; i <= 10; i++)
+{
+	sop(i);
+}
+
+for(int i = 1,j = 10; i <= 10 && j >=0; i++,j--)
+{
+}
+
+--------------------------------------
+
+nested control statement => nested if-else
+
+if(condition)
+{
+	//ifpart
+	
+	if(condition)
+	{
+	}
+	else
+	{
+	}
+}
+else
+{
+	//elsepart
+}
+
+-------------------------------------------
+
+
+class ReturnDemo
+{
+        public static void myFun(int a)
+        {
+                int res = a + 5;
+                return;
+                System.out.println(res);
+        }
+
+        public static void main(String args[])
+        {
+                myFun(10);
+        }
+}
+
+
+Compilation error:
+ReturnDemo.java:7: error: unreachable statement
+		System.out.println(res);
+
+to fix:
+if(res < 10)
+{
+        return;
+}
+
+-----------------------
+
+
+block1:
+{
+	//code
+	break block1;		//This break will take the control out of the block1
+}
+
+
+break use => labeled block, switch-case, loop
+
+when we use break inside block, we must have to give the name of the block with the break statement.
+
+---------------------------
+
+public static void myFun()
+{
+        boolean b = true;
+
+        block2:
+        {
+                System.out.println("Inside block2");
+
+                block3:
+                {
+                        System.out.println("Inside block3");
+                        if(b == true)
+                                break block2;
+                }
+
+                System.out.println("Out of block3");
+        }
+
+        System.out.println("Out of block2");
+}
+
+OUTPUT:
+Inside block2
+Inside block3
+Out of block2
+
+-------------------------------
+
+block1:
+{
+}
+
+block2:
+{
+	block3:
+	{
+		//break block3;		//fine, OK
+		//break block2;		//fine, OK
+		break block1;		//Compilation ERROR
+	}
+}
+
+
+We can not break to any label which is not defined to enclosing block.
+
+----------------------------
+
+class BreakLoopDemo {
+        public static void main(String args[]) {
+
+                outer: for (int i = 1; i <= 5; i++)
+                {
+                        inner: for (int j = 1; j <= 5; j++)
+                        {
+                                System.out.print(j+"\t");
+
+                                if(j == i)
+                                {
+                                        break ; //equivalent to 'break inner'
+                                }
+
+                        }
+                        System.out.println();
+                }
+        }
+}
+
+--------------------------
+
+class ContinueLoopDemo {
+        public static void main(String args[]) {
+
+                outer: for (int i = 1; i <= 5; i++)
+                {
+                        System.out.println();
+                        inner: for (int j = 1; j <= 5; j++)
+                        {
+
+                                if(j == i)
+                                {
+                                        continue outer ;        //equivalent to 'continue inner'
+                                }
+
+                                System.out.print(j+"\t");
+
+                        }
+                }
+        }
+}
+
+
+------------------------------
+
+
+switch(case val)
+{
+	case no1:
+		break;
+	
+	case no2:
+		break;
+		
+	default:
+}
+
+
+NOTE: In switch case we can take int, char, String as a case value.
+
+-------------------------
+String choice = "three";
+
+switch(choice)
+{
+
+        case "one":
+                System.out.println("case one");
+                break;
+
+        default:
+                System.out.println("default case");
+
+        case "two":
+                System.out.println("case two");
+                break;
+
+}
+
+System.out.println("Out of switch case");
+
+OUTPUT:
+default case
+case two
+Out of switch case
+
+-----------------------------
+
+char choice = 'a';
+
+switch(choice)
+{
+
+        case 'A'|'a':
+                System.out.println("case A");
+                break;
+
+        case 'B':
+        case 'b':
+                System.out.println("case B");
+                break;
+
+        default:
+                System.out.println("default case");
+}
+
+System.out.println("Out of switch case");
+                
+                
+                         
+OUTPUT:
+case A
+Out of switch case
+
+---------------------------------------------------
+
+case 'A'|'a':
+        //It is equivalent to case 'a'. Here bitwise operation takes place between 'A' and 'a' and then finally equivalent character is determined and that becomes the case.
+        
+---------------------------
+
+outer: Loop
+{
+	inner: Loop
+	{
+		//break outer;		//OK
+		//break inner;		//OK, we can use simply break here in place of break inner.
+	}
+	
+	//break inner; 		//compilation error
+	//break outer;		//OK, we can use simply break also in place of break outer.
+}
+
+
+------------------------------------ 
+===========================================================
+
+ARRAY
+-------
+It is a collection of similar type of data.
+
+One-Dimensional Array
+-----------
+
+int arr[] = {5,10,15,20,25};
+
+sop(arr[1]);	//will print 10
+sop(arr[2]);	//will print 15
+
+arr.length;		//It will give 5 here
+
+--------------------------------------------------
+arr.length => Gives the length or size of the array.
+--------------------------------------------------
+
+arr[2] = 30;	//will change the value at index 2 from 15 to 30.
+
+-----
+
+int arr[] = new int[5];
+
+int size = 5;
+int arr[] = new int[size];
+
+Two dimensional array
+---------------------
+
+int arr[][] = {{5,10,15},{20,25,30}};
+
+int arr[][] = new int[2][3];		//new int[no_of_rows][no_of_cols]
+
+new int[2][3] => It will dynamically allocate memory to store 2-dim int array with 2 rows and 3 columns.
+
+
+int rows = 2;
+int cols = 3;
+int arr[][] = new int[rows][cols];
+
+Jagged Array
+--------------
+Each row can have different number of columns.
+
+int arr[][] = {{5,10},{15,20,25},{30}};
+
+
+dynamic allocation for jagged array
+--------------------------------------
+
+int arr[][] = new int[3][];
+
+arr[0] = new int[2];
+arr[1] = new int[3];
+arr[2] = new int[1];
+
+
+Jagged Array Example
+-----------------------
+
+class JaggedArray
+{
+        public static void main(String args[])
+        {
+                //int arr[][] = {{5,10},{15,20,25},{30}};
+
+                int arr[][] = new int[3][];
+
+                arr[0] = new int[2];
+                arr[1] = new int[3];
+                arr[2] = new int[1];
+
+                //INPUT to array
+
+                for(int i = 0; i < 3; i++)
+                {
+                        for(int j = 0; j < arr[i].length; j++)
+                        {
+                                arr[i][j] = i + j;
+                        }
+                }
+
+                //Print
+
+                for(int i = 0; i < 3; i++)
+                {
+			for(int j = 0; j < arr[i].length; j++)
+                        {
+                                System.out.print(arr[i][j]+"\t");
+                        }
+                        System.out.println();
+                }
+        }
+}
+
+
+OUTPUT:
+0	1	
+1	2	3	
+2
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+             
+                
+                
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+

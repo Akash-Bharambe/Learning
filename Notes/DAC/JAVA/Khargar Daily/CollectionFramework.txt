@@ -1,0 +1,516 @@
+Collection Framework
+------------------------
+Collection framework is a class library to handle group of objects.
+Collection stores only object and not primitive data.
+
+Collection => It is an interface.
+Collections => It is an utility class.
+
+Collection classes are also called as Container because it contains group of objects.
+
+All the collection classes are defined inside java.util package.
+
+Difference between List & Set
+------------------------------
+- Index based operation is possible in List but not in Set.
+- List can have duplicates but Set can not have.
+- List can have multiple null values but set can have only one null value.
+
+new ArrayList();		//default capacity 10
+new ArrayList(25);		//ArrayList capacity 25
+
+Map
+----
+Map stores data in the form key value pair.
+Key is unique i.e. key can not be duplicate.
+
+
+Collection classes are called as container classes. Ex. ArrayList, LinkedList, HashSet etc.
+Objects of collection classes are called as container object.
+=============================================================
+
+
+for-each loop
+==================
+
+int []arr = {5,10,15,20,25};
+int [][]darr = {
+		{1,2},
+		{3,4},
+		{5,6}
+	     };
+	     
+int a, b;
+
+int [] arr1, arr2;
+
+for(int val : arr)
+{
+	System.out.println(val);
+	//val = val + 2;	//It will not change the array elements value
+}
+
+for-each loop can be used with the collection classes which implement Iterable interface. It means we can not use for-each for iterating Map.
+
+for-each can be used for List,Queue & Set.
+
+-----------------------------------
+
+interface MyInterface
+{
+}
+
+
+class MyClass implements MyInterface
+{
+}
+
+MyInterface mif = new MyClass();	//This is an object of MyClass as well as MyInterface
+
+
+
+class First
+{
+}
+
+class Second extends First
+{
+}
+
+First f = new Second();			//This is an object of Second as well as First
+
+
+===============================================
+interface Iterator <E>
+{
+	boolean hasNext();
+	E next();
+}
+
+
+interface Iterable<E>
+{
+	Iterator<E> iterator();
+}
+
+
+class ArrayList<E> implements Iterable<E>
+{
+	Iterator<E> iterator()
+	{
+		//Inner class which implements Iterator
+		//Returns implementing Inner class object
+	}
+}
+
+
+class First
+{
+}
+
+class Second
+{
+	First myFun()
+	{
+	}
+}
+
+=====================================================
+
+ListIterator can be used for List only. Using ListIterator we can iterate in both directions. But using Iterator, for-each, Enumeration we can iterator in only one direction.
+Iterator,for-each can be used with any container class which implements Iterable
+===============================================
+
+Each container stores objects references only.
+
+================================================================
+class Demo
+{
+	void myFun()
+	{
+	}
+}
+
+Demo d;
+d.myFun();		//Runtime Error: Null pointer exception as reference variable cotains null
+
+=================================================================
+Set
+----
+- It can not have duplicate elements.
+
+- HashSet - It does not maintains insertion order.
+- LinkedHashSet - It maintains the insertion order
+- TreeSet - Sorted set of elements i.e. it stores element in sorted order.
+
+
+Hash Set
+------------
+Insertion order
+2
+5
+3
+6
+4
+
+Traverse
+6
+3
+5
+4
+2
+
+
+Hash Set
+------------
+Insertion order
+2
+5
+3
+6
+4
+
+Traverse
+2
+5
+3
+6
+4
+
+TreeSet
+-----------
+Insertion order
+2
+5
+3
+6
+4
+
+Traverse
+2
+3
+4
+5
+6
+
+
+====================================================
+
+import java.util.*;
+
+class SetDemo
+{
+        static void display(Collection <?> c)
+        {
+                for(Object ob : c)
+                {
+                        System.out.println(ob);
+                }
+        }
+
+        public static void main(String args[])
+        {
+                Set<String> mySet1 = new TreeSet<String>();     //Change it to HashSet,LinkedHashSet,TreeSet and observe the output
+                mySet1.add("Mukesh");
+                mySet1.add("Raman");
+                mySet1.add("Aman");
+                mySet1.add("Sridhar");
+                mySet1.add("Kunal");
+
+                display(mySet1);
+        }
+}
+
+
+OUTPUT:
+Aman
+Kunal
+Mukesh
+Raman
+Sridhar
+
+======================================================================
+
+
+String str = "ababpcadxpzsbd";
+
+
+Set<Character> myCharSet = new TreeSet<Character>();
+
+for(int i = 0; i < str.length(); i++)
+{
+	char ch = str.charAt(i);
+	myCharSet.add(ch);
+}
+
+======================================================================
+
+Map
+----
+- It stores data in the key value pair.
+- In map, keys are unique and can not be duplicate. Values can be duplicate but not the key.
+
+key -> rollNo.
+value -> student name
+
+HashMap
+HashTable
+LinkedHashMap
+TreeMap
+
+Map has a method entrySet(); It returns the set view of the map elements and it is backed up by the map means any change done through set will reflect in map.
+
+NOTE : get(key) method returns null if key is not found in the map.
+
+interface Map
+{
+	interface Entry
+	{
+	}
+}
+
+object of Map.Entry
+
+class A implements Map.Entry;
+
+return new A();	// Returning Map.Entry object
+
+Set<Integer>
+Set<String>
+Set<Student>
+Set<Map.Entry>  => Set of Map.Entry objects
+
+
+Map.Entry methods
+	- getKey()
+	- getValue()
+	- setValue()
+
+Map:
+	HashMap => It does not maintain insertion order.
+	LinkedHashMap => It maintains insertion order. Order of adding and retrieval will be same.
+	TreeMap => Keys are sorted. Keys based sorting.
+	HashTable => Just like HashMap but it is Synchronized whereas HashMap is non-synchronized.
+	
+
+frequency of characters in a given string.
+String str = "aabaabaacaadddab";
+
+a = 9
+b = 3 
+c = ? 
+d = ?
+
+Map <Character,Integer> myCharMap = new TreeMap <Character,Integer> ();
+String str = "aabaabaacaadddab";
+for(int i = 0; i < str.length(); i++)
+{
+	char ch = str.charAt(i);
+	if(myCharMap.get(ch) == null)
+	{
+		myCharMap.put(ch,1);
+	} 
+	else
+	{
+		int currVal = myCharMap.get(ch);
+		myCharMap.put(ch,currVal+1);
+		
+	}
+}
+
+for(Map.Entry<String,Integer> entry : myCharMap.entrySet())
+{
+	System.out.println(entry.getKey() + " = " + entry.getValue());	
+}
+
+
+=======================================================================
+
+Date: October 14, 2023
+-----------------------
+
+Tree -> Sorted
+TreeSet -> Sorted based on element
+TreeMap -> Sorted based on key
+
+Linked -> maintains insertion order
+LinkedHashSet
+LinkedTreeSet
+
+List -> Always maintains insertion order
+Like TreeSet, TreeMap there is no List class which has automatic sorting mechanism.
+To sort the list we will use
+Collections.sort();	//This method is used to sort List only and not for Set & Map
+
+Collections
+============
+It is an utility class where all the methods are static. It is defined to work with collection classes.
+sort()
+shuffle()
+max()
+min()
+
+Arrays 
+=======
+It is an utility class to work with one dimensional array only.
+toString(array) : Returns String representation of the passed array 
+sort(array) : Sorts the passed array.
+binarySearch(arr,valtosearch) : Array must be sorted first then we can use binarySearch(). It returns index of searched element. If not found returns negative value
+equals() : checks if two arrays contains same elements with same order. If elements are same but order is different then also it will return false.
+fill(val) : fills the all elements of the array with the given value.
+copyOf(originalarr, newarrlength) : Copies original array elements into new array.
+
+-----------------
+We can not convert non-static to static while overriding any non-static method of parent class into child class.
+-----------------
+
+Collection classes => String, Integer
+
+Collection classes => Student
+
+
+List<String> list1 = new ArrayList<String>();
+//add some strings - "Rohit","Mohit","Geeta"
+List<String> list2 = new ArrayList<String> (list1);	//list2 will contain "Rohit","Mohit","Geeta"
+
+Set<String> set1 = new HashSet<String>();
+//add some strings - "Rohit","Mohit","Geeta"
+List<String> list2 = new ArrayList<String> (set1);	//list2 will contain "Rohit","Mohit","Geeta"
+
+
+current state of an object
+--------------------------
+state of an object means currently stored data in the object.
+
+=================================================
+
+Comparable <T>
+------------
+- a generic interface
+- compareTo(T obj)
+
+a compare b
+if a == b then return 0
+if a < b then return -1 or any -ve value
+if a > b then return 1 or any +ve value
+
+
+s1,s2 => Student objects
+
+s1.compareTo(s2);		//sort() method will internally call something like this.
+
+so in 
+public int compareTo(Student s)
+{
+	this => s1
+	s => s2
+}
+
+
+Collections.sort(studList);  //will use compareTo() inside Student class and will sort.
+
+Collections.sort(studList,Collections.reverseOrder()); //will use compareTo() and sort in reverse order
+
+
+===============================
+
+Comparator<T> 
+------------
+- a generic interface
+- int compare(T a, T b)		//compare(s1,s2) => internally this call will be made by sort() method
+				//s1 and s2 are Student objects
+
+
+===================================================
+
+
+synchronizedCollection(Collection<T> c)
+Returns a synchronized (thread-safe) collection backed by the specified collection.
+
+List<String> myList1 = new ArrayList<String>();		//non-synchronized
+List<String> myList2 = Collections.synchronizedList(myList1);	//synchronized list myList2
+
+Set<String> mySet1 = new HashSet<String>();		//non-synchronized
+Set<String> mySet2 = Collections.synchronizedSet(mySet1);	//synchronized list mySet2
+
+Map<Integer,String> myMap1 = new HashMap<Integer,String>();	//non-synchronized
+Map<Integer,String> myMap2 = Collections.synchronizedMap(myMap1);	//synchronized map myMap2
+=====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

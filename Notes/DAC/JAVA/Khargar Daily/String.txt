@@ -1,0 +1,571 @@
+String is a sequence of characters.
+
+Creating String object
+-----------------------
+
+String str1 = "welcome";	//Will create String object inside String Constant Pool
+String str2 = new String("welcome");	//Will create String object inside Heap area
+
+String str3 = "welcome";	//str3 = str2
+String str5 = "welcome";
+String str4 = new String("welcome");
+
+str1 == str2 ;		//false
+str1 == str3 ;		//true
+str2 == str3 ;		//false
+str2 == str4 ;		//false
+
+String Constant Pool contains unique String objects.
+
+------------------------------
+if(str1 == str2)
+  sop("str1 == str2");
+else
+  sop("str1 != str2");
+
+OR;
+
+System.out.println(str1 == str2 ? "str1 == str2" : "str1 != str2");
+-----------------------------
+
+int a = 5;
+int b = 10;
+
+a == b;		//value comparison, not reference comparison
+
+str1 == str2;	//reference comparison
+
+-------------------------------
+
+mutable: Which can be changed.
+immutable: Which can not be changed.
+
+
+Strings are immutable.
+
+concat(String s): concates the two string.
+
+String s1 = "Hello";
+String s2 = s1.concat(" Friends");
+
+System.out.println(s1);		//Hello
+System.out.println(s2);		//Hello Friends
+
+object refered by s1 will not change. A new object with the string "Hello Friends" will be created and its reference will be stored in s2.
+
+
+String s = " Friends";
+String s1 = "Hello";
+
+1. String s2 = "Hello".concat(" Friends");		//Hello Friends
+2. String s2 = "Hello".concat(s);			//Hello Friends
+3. String s2 = s1.concat(s); 			//Hello Friends
+
+
+
+==================================================
+
+String methods
+---------------
+
+charAt()
+---------
+Returns a character at a particular index.
+
+String str = "welcome";
+str.charAt(0);		//return 'w'
+str.charAt(5);		//return 'm'
+
+
+equals()
+---------
+- String class overrides Object class equals(), toString() method.
+- equals() method inside class String does deep comparison i.e. it compares String values and not references
+
+String str1 = "Hello";			//string constant pool - SCP
+String str2 = new String("Hello");	//heap memory
+String str3 = "hello";
+
+
+str1 == str2;			//false
+
+str1.equals(str2)		//true
+str1.equals(str3)		//false
+
+
+
+equalsIgnoreCase()
+--------------------
+
+String str1 = "WelCome";
+String str2 = "weLcome";
+
+str1.equalsIgnoreCase(str2);	//true
+str2.equalsIgnoreCase(str1);	//true
+
+
+toCharArray()
+-----------------
+
+String str1 = "welcome";
+char [] charr = str1.toCharArray();
+
+
+startsWith()
+-------------
+String str1 = "Hello Friends";
+str1.startsWith("Hello");	//return true
+str1.startsWith("welcome");	//return false
+
+endsWith()
+-----------
+
+
+compareTo()
+-----------
+It will always first check the length of both the string. If length differs, it just returns the difference of their lengths.
+
+If lengths are same, it will compare ascii values. If length same and value different then it returns difference of ascii value of the charachters at the place at which difference occurs.
+
+
+Will compare two strings and its return type is int and not boolean.
+
+String str1 = "Welcome";
+String str2 = "Welcome";
+String str3 = "Welfare";
+String str4 = "Welcome Friends";
+
+str1.compareTo(str2);		//Returns zero i.e. both string are same
+str1.compareTo(str3);		//Returns  -3 i.e. difference of ascii values of c (99) and f (102)
+str1.compareTo(str4);		//Will return -8 i.e. difference of lengths of str1 - str2
+str4.compareTo(str1);		//Will return 8 i.e. difference of lengths of str2 - str1
+
+substring()
+--------------
+String str1 = "welcome";
+
+substring of welcome
+w
+e
+l
+c
+o 
+m
+e
+
+we
+el
+lc
+co
+om
+me
+
+wel
+elc
+lco
+com
+ome
+
+welc
+elco
+lcom
+come
+
+
+wlcm	// it is not a substring of "welcome". It must be continuous sequence within the source string.
+
+
+String str1 = "welcome";
+String str2 = str1.substring(3);	//It will return "come";
+System.out.println(str2);		//will print "come"
+
+str2 = str1.substring(2,6);		//It will return "lcom"
+System.out.println(str2);		//It will print "lcom"
+
+----------------------
+
+replace()
+----------
+String str1 = "jiya joy";
+String str2 = str1.replace('j','t');
+sop(str2);		//tiya toy
+
+replaceFirst()
+-------------------
+String str1 = "hello, hello bye";
+String str2 = str1.replaceFirst("hello","hi");
+sop(str2);	//hi, hello bye
+
+replaceAll()
+---------------
+String str1 = "hello, hello bye";
+String str2 = str1.replaceAll("hello","hi");
+sop(str2);	//hi, hi bye
+
+
+intern()
+------------
+
+String str1 = new String("welcome");
+String str2 = str1.intern();		//will create the string object with same value in String 
+					//Constant Pool
+					
+String str3 = "welcome";
+
+str2 == str3;		//will return TRUE
+
+
+indexOf()
+---------
+It will return index of the first matched character or string.
+If found then will return respective index value.
+If not found then will return -1.
+
+String str1 = "welcome";
+str1.indexOf('e');		//will return 1, it will search from index 0
+str1.indexOf('e',3);		//will return 6, it will search from index 3
+str1.indexOf('p');		//will return -1
+
+str1.indexOf("come");		//will return 3
+str1.indexOf("lco");		//will return 2
+
+
+contains()
+-------------
+String str1 = "welcome";
+str1.contains("com");		//will return TRUE
+str1.contains("dom");		//will return FALSE
+str1.contains("c");		//will return TRUE
+
+
+isEmpty()
+----------
+
+String str1 = "";
+String str2 = "     ";
+str1.isEmpty();		//will return TRUE
+str2.isEmpty();		//will return FALSE, space is also a character
+
+
+join()			//static method of String
+---------
+String day = "09";
+String month = "Oct";
+String year = "2023";
+
+String date = String.join("/",day,month,year);
+sop(date);		//will print 09/Oct/2023
+
+
+
+String str2 = "ab-ac-acd-bcd-bbc";
+
+str2.split("-");		//array of ab ac acd bcd bbc
+str2.split("-",3);		//split operation 2 times => ab ac acd-bcd-bbc
+
+1st split:
+ab ac-acd-bcd-bbc
+
+2nd split:
+ab ac acd-bcd-bbc
+
+str2.split("-",1);		//split operation 0 times => ab-ac-acd-bcd-bbc
+
+----------------------------
+
+String str2 = "pq@rccc@xy@zccc";
+str2.split("c",-1);
+
+1st split:
+pq@r
+cc@xy@zccc
+
+2nd split:
+pq@r
+""
+c@xy@zccc
+
+3rd split:
+pq@r
+""
+""
+@xy@zccc
+
+4th split:
+pq@r
+""
+""
+@xy@z
+cc
+
+5th split:
+pq@r
+""
+""
+@xy@z
+""
+c
+
+6th split: (final result of split)
+pq@r
+""
+""
+@xy@z
+""
+""
+""
+
+
+final split result : pq@r "" "" @xy@z "" "" ""  //str2.split("c",-1); does not removes trailing empty
+						//string.
+final split result : pq@r "" "" @xy@z       	//str2.split("c",0); removes trailing empty string
+
+
+String str1 = "Myfriends";
+str1.substring(2);
+
+OR;
+
+"Myfriends".substring(2);	//friends
+"Myfriends".substring(2,8);	//friend
+
+String immutable.
+
+String str1 = "Hello ";			//str1 = "Hello "
+String str2 = str1.concat("World");	//str1 = "Hello ", str2 = "Hello World"
+
+====================================================================
+
+
+First f = new First();
+
+Object of First 	//Heap Area
+f			//Stack
+
+int a;			//Stack
+
+Local Variable/ Local Reference Variable => Stack
+Objects or whatever we allocate using new => Heap
+Metaspace/PermGen/Method Area		=> Class definitions and meta data
+Static data => Heap (java 8 onwards)
+
+=========================================================================
+Date: 10 October, 2023
+-------------------------
+
+String.format()
+---------------
+Must refer ppt.
+
+==============================================================
+
+StringBuffer
+--------------
+
+String is immutable.
+StringBuffer is mutable.
+
+StringBuffer str1 = new StringBuffer("welcome");	//OK
+StringBuffer str2 = "welcome";          //ERROR
+
+--------------------------
+
+capacity()
+----------
+StringBuffer str1 = new StringBuffer();			//initial capacity which is default = 16
+StringBuffer str1 = new StringBuffer("welcome");	//initial capacity = default + stringlength
+								// = 16+7 = 23
+---------------------------------------------------------------						
+StringBuffer class has not overridden the equals() method of Object class.
+
+StringBuffer str1 = new StringBuffer("hello");
+StringBuffer str2 = new StringBuffer("hello");
+
+str1.equals(str2);		//will return FALSE
+
+String str1 = new String("hello");
+String str2 = new String("hello");
+
+str1.equals(str2);		//will return TRUE
+
+----------------------------------------------------------------
+
+length() method inside String, StringBuffer, StringBuilder class
+----------------------------------
+
+String str1 = "welcome";
+
+str1.length();				//will return 7. length() is a method
+"welcome".length();			//will return 7.
+new String("welcome").length();		//will return 7
+
+int arr[] = new int[5];
+arr.length;		//length is property and not method here
+
+-------------------------
+First f1 = new First();
+f1.myFun();
+
+OR;
+
+new First().myFun();
+
+
+
+==============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
