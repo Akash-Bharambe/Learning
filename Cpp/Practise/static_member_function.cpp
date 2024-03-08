@@ -28,10 +28,8 @@ int main()
     Math::sum(20, 30);
     Math::sum(20, 30);
     Math m1;
-    int res = m1.sum(20,30);
-   
     
-    cout << "Sum: " << res << endl;
+    cout << "Sum: " << m1.sum(20,30) << endl;
 
     return 0;
 }
