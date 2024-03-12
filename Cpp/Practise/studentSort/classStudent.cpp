@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "studentHead.h"
+#include "head.h"
 using namespace std;
 
 Student::Student()
@@ -46,24 +46,31 @@ void sortRollNo(Student arr[])
 {
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
-            if (arr[i].getRollNo() > arr[j].getRollNo())
-                swap(arr[i], arr[j]);
+            if (arr[i].getRollNo() < arr[j].getRollNo())
+            {
+                Student temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
 }
 
 void sortName(Student arr[])
 {
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
-            if (arr[i].getName().compare(arr[j].getName()) == 0)
-                swap(arr[i], arr[j]);
+            if (arr[i].getName() < arr[j].getName())
+            {
+                Student temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
 }
 
 void sortMarks(Student arr[])
 {
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
-            if (arr[i].getMarks() > arr[j].getMarks())
-            // swap(arr[i], arr[j]);
+            if (arr[i].getMarks() < arr[j].getMarks())
             {
                 Student temp = arr[i];
                 arr[i] = arr[j];
