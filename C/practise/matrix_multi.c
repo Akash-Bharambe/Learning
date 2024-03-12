@@ -6,7 +6,6 @@ void matrix_multiplication(int i, int j, int a[][j], int b[][j], int r[][j])
     {
         for (int y = 0; y < j; ++y)
         {
-
             r[x][y] = 0;
             for (int k = 0; k < j; ++k)
             {
