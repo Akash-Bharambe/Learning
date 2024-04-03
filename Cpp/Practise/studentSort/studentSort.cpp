@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "head.h"
+#include "studentHead.h"
 using namespace std;
 
 int main()
